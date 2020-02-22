@@ -1,9 +1,11 @@
 import { Scene } from 'phaser';
 import DigSite, { SITE_EVENTS } from '../entities/DigSite';
+import * as config from '../config/config.json';
 
 export class Game extends Scene {
   digSite: DigSite;
-  layersDirty: boolean = true;
+  remainingActions: number;
+  mode: MODE;
 
   constructor() {
     super({
@@ -11,11 +13,8 @@ export class Game extends Scene {
     });
   }
 
-  preload() {
-    // console.log('preload...');
-  }
-
   create() {
+    this.remainingActions = config.startingActions;
     const base = new Phaser.GameObjects.Image(this, 0, 0, 'base');
     base.setOrigin(0, 0);
     this.add.existing(base);
@@ -24,13 +23,36 @@ export class Game extends Scene {
     this.add.existing(this.digSite);
 
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
+    this.digSite.events.on(SITE_EVENTS.TAP, this.handleTap, this);
 
+    this.switchMode(MODE.DIGGING);
+  }
+
+  private handleTap() {
+    this.remainingActions--;
+
+    if (this.remainingActions <= 0) {
+      this.switchMode(MODE.INVENTORY);
+    }
+  }
+
+  private switchMode(mode: MODE) {
+    this.mode = mode;
+
+    if (this.mode === MODE.INVENTORY) {
+      // modal end of day
+      // show inventory
+    } else {
+      // close inventory
+    }
   }
 
   private handleDiscovery(treasure: any) {
     console.log('discovery', treasure);
-
-    this.events.emit(SITE_EVENTS.DISCOVER, treasure);
   }
-
 }
+
+export enum MODE {
+  DIGGING = 'dig',
+  INVENTORY = 'inv'
+};

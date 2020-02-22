@@ -2,8 +2,10 @@ import { shuffle } from '../lib/helpers';
 import Tile, { TILE_EVENTS } from '../entities/Tile';
 import * as config from '../config/config.json';
 import * as treasureConfig from '../config/treasure.json';
+import { Game, MODE } from '../scenes/game';
 
 export default class DigSite extends Phaser.GameObjects.Container {
+    scene: Game;
     layers: Tile[][][];
     tool: number;
     fragmentDistribution: number[][];
@@ -84,7 +86,12 @@ export default class DigSite extends Phaser.GameObjects.Container {
     }
 
     private handleTileTap(tile: Tile) {
+        if (this.scene.mode !== MODE.DIGGING) {
+            return;
+        }
+
         tile.receiveDamage(this.tool);
+        this.events.emit(SITE_EVENTS.TAP);
     }
 
     private handleDiscovery(treasure: any) {
@@ -110,5 +117,6 @@ export default class DigSite extends Phaser.GameObjects.Container {
 }
 
 export enum SITE_EVENTS {
-    DISCOVER = 'discover'
+    DISCOVER = 'discover',
+    TAP = 'tap'
 };

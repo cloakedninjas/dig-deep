@@ -1,4 +1,7 @@
+import { Game, MODE } from '../scenes/game';
+
 export default class Tile extends Phaser.GameObjects.Sprite {
+    scene: Game;
     grid: {
         x: number;
         y: number;
@@ -29,10 +32,10 @@ export default class Tile extends Phaser.GameObjects.Sprite {
 
         const textureFile = 'dirt_' + (z + 1);
         this.setTexture(textureFile);
-        
+
         this.x = x * this.width;
         this.y = y * this.height;
-        
+
         this.setInteractive();
         this.on('pointerup', this.handleClick, this);
         this.on('pointerover', this.handleOver, this);
@@ -58,6 +61,10 @@ export default class Tile extends Phaser.GameObjects.Sprite {
     }
 
     private handleClick() {
+        if (this.scene.mode !== MODE.DIGGING) {
+            return;
+        }
+
         this.events.emit(TILE_EVENTS.TAP, this);
     }
 
