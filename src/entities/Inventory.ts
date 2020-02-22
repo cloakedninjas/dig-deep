@@ -6,6 +6,7 @@ const TWEEN_DURATION: number = 1000;
 
 export default class Inventory extends Phaser.GameObjects.Container {
     discoveries: FoundFragments[];
+    allFragments: any[];
     itemsContainer: Phaser.GameObjects.Container;
     pageLabel: Phaser.GameObjects.Text;
     totalPages: number;
@@ -67,12 +68,25 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
     show() {
         this.currentPage = 0;
+        this.allFragments = [];
 
-        const totalEntries = this.discoveries.reduce((sum, discovery) => {
-            return sum + discovery.sprites.length;
-        }, 0);
+        this.discoveries.forEach((discovery, itemId) => {
+            discovery.pieces.forEach(piece => {
+                //  `fragment_${tc.id}_${foundPiece}`
+                const spriteName = 'item_large';
+                const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, spriteName);
+                fragmentSprite.setOrigin(0, 0);
 
-        this.totalPages = Math.ceil(totalEntries / this.pageSize);
+                this.allFragments.push({
+                    id: itemId,
+                    piece,
+                    sprite: fragmentSprite
+                });
+            });
+
+        });
+
+        this.totalPages = Math.ceil(this.allFragments.length / this.pageSize);
         this.moneyLabel.text = this.money.toString();
 
         this.createPage(0);
@@ -88,7 +102,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
     }
 
     createPage(page: number) {
-        let i = 0;
         const startX = 95;
         const startY = 50;
         const spriteW = 100;
@@ -100,18 +113,12 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.itemsContainer.removeAll();
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.totalPages;
 
-        this.discoveries.forEach(discovery => {
-            discovery.sprites.forEach(sprite => {
-                if (i >= startI && i < endI) {
-                    this.itemsContainer.add(sprite);
-                    sprite.scale = 0.6;
-                    sprite.x = (spriteW * (i % this.cols)) + startX;
-                    sprite.y = (spriteH * Math.floor((i - startI) / this.rows)) + startY;
-                    sprite.tint = 200000;
-                }
-
-                i++;
-            });
+        this.allFragments.slice(startI, endI).forEach((fragment, i) => {
+            this.itemsContainer.add(fragment.sprite);
+            fragment.sprite.scale = 0.6;
+            fragment.sprite.x = (spriteW * (i % this.cols)) + startX;
+            fragment.sprite.y = (spriteH * Math.floor(i / this.rows)) + startY;
+            fragment.sprite.tint = 200000;
         });
     }
 
@@ -128,5 +135,9 @@ export default class Inventory extends Phaser.GameObjects.Container {
             this.currentPage++;
             this.createPage(this.currentPage);
         }
+    }
+
+    private selectItem() {
+
     }
 }

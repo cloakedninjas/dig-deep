@@ -39,19 +39,16 @@ export class Game extends Scene {
 
     //this.switchMode(MODE.DIGGING);
 
-    const sprites = [];
+    const p = [];
     for (let i = 0; i < 13; i++) {
-      const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, 'item_large');
-      fragmentSprite.setOrigin(0, 0);
 
-      sprites.push(fragmentSprite);
+      p.push(i);
     }
 
     this.foundFragments[1] = {
       found: 0,
-      pieces: [],
-      piecesLeft: [],
-      sprites
+      pieces: p,
+      piecesLeft: []
     };
 
     this.switchMode(MODE.INVENTORY);
@@ -109,8 +106,7 @@ export class Game extends Scene {
       this.foundFragments[treasure] = {
         found: 0,
         pieces: [],
-        piecesLeft,
-        sprites: [],
+        piecesLeft
       };
     }
 
@@ -118,12 +114,6 @@ export class Game extends Scene {
 
     const foundPiece = this.foundFragments[treasure].piecesLeft.pop();
     this.foundFragments[treasure].pieces.push(foundPiece);
-
-    //  `fragment_${tc.id}_${foundPiece}`
-    const spriteName = 'item_large';
-    const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, spriteName);
-    fragmentSprite.setOrigin(0, 0);
-    this.foundFragments[treasure].sprites.push(fragmentSprite);
 
     console.log(this.foundFragments);
   }
@@ -147,5 +137,4 @@ export interface FoundFragments {
   found: number;
   pieces: number[];
   piecesLeft: number[];
-  sprites: Phaser.GameObjects.Sprite[];
 }
