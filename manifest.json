@@ -8,8 +8,8 @@
       "file": "dirt_2.png",
       "size": 85726
     },
-    "test": {
-      "file": "test.png",
+    "base": {
+      "file": "base.png",
       "size": 85726
     }
   },
