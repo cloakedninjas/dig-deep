@@ -9,5 +9,9 @@
         2,
         3
     ],
-    "startingActions": 6
+    "workDays": 7,
+    "tool": {
+        "startingPower": 1,
+        "startingActions": 6
+    }
 }

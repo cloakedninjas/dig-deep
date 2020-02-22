@@ -3,21 +3,22 @@ import Tile, { TILE_EVENTS } from '../entities/Tile';
 import * as config from '../config/config.json';
 import * as treasureConfig from '../config/treasure.json';
 import { Game, MODE } from '../scenes/game';
+import Tool from './Tool';
 
 export default class DigSite extends Phaser.GameObjects.Container {
     scene: Game;
     layers: Tile[][][];
-    tool: number;
+    tool: Tool;
     fragmentDistribution: number[][];
     events: Phaser.Events.EventEmitter;
     layerSize: number;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene: Phaser.Scene, x: number, y: number, tool: Tool) {
         super(scene, x, y, null);
         this.layers = new Array(config.maxLayers);
         this.layerSize = config.layerWidth * config.layerHeight;
         this.fragmentDistribution = new Array(config.maxLayers);
-        this.tool = 1;
+        this.tool = tool;
         this.events = new Phaser.Events.EventEmitter();
 
         treasureConfig.forEach((treasure) => {
@@ -90,7 +91,7 @@ export default class DigSite extends Phaser.GameObjects.Container {
             return;
         }
 
-        tile.receiveDamage(this.tool);
+        tile.receiveDamage(this.tool.power);
         this.events.emit(SITE_EVENTS.TAP);
     }
 

@@ -1,25 +1,34 @@
 import { Scene } from 'phaser';
 import DigSite, { SITE_EVENTS } from '../entities/DigSite';
+import Tool from '../entities/Tool';
+import { shuffle } from '../lib/helpers';
 import * as config from '../config/config.json';
+import * as treasureConfig from '../config/treasure.json';
 
 export class Game extends Scene {
   digSite: DigSite;
-  remainingActions: number;
   mode: MODE;
+  foundFragments: FoundFragments[];
+  daysLeft: number;
+  tool: Tool;
 
   constructor() {
     super({
       key: 'GameScene',
     });
+
+    this.foundFragments = [];
   }
 
   create() {
-    this.remainingActions = config.startingActions;
+    this.daysLeft = config.workDays;
+    this.tool = new Tool(config.tool.startingActions, config.tool.startingPower);
+
     const base = new Phaser.GameObjects.Image(this, 0, 0, 'base');
     base.setOrigin(0, 0);
     this.add.existing(base);
 
-    this.digSite = new DigSite(this, 73, 73);
+    this.digSite = new DigSite(this, 73, 73, this.tool);
     this.add.existing(this.digSite);
 
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
@@ -29,9 +38,9 @@ export class Game extends Scene {
   }
 
   private handleTap() {
-    this.remainingActions--;
+    this.tool.actionsLeft--;
 
-    if (this.remainingActions <= 0) {
+    if (this.tool.actionsLeft <= 0) {
       this.switchMode(MODE.INVENTORY);
     }
   }
@@ -40,15 +49,53 @@ export class Game extends Scene {
     this.mode = mode;
 
     if (this.mode === MODE.INVENTORY) {
-      // modal end of day
-      // show inventory
+      this.daysLeft--;
+
+      if (this.daysLeft <= 0) {
+        this.scene.start('ResultScene');
+      } else {
+        this.tool.refresh();
+
+        // modal end of day
+        // show inventory
+      }
+
     } else {
       // close inventory
     }
   }
 
-  private handleDiscovery(treasure: any) {
+  private handleDiscovery(treasure: number) {
     console.log('discovery', treasure);
+
+    const tc = treasureConfig.find(tc => tc.id === treasure);
+
+    if (!this.foundFragments[treasure]) {
+      let piecesLeft = [];
+
+      for (let i = 0; i < tc.fragments; i++) {
+        piecesLeft.push(i);
+      }
+
+      piecesLeft = shuffle(piecesLeft);
+
+      this.foundFragments[treasure] = {
+        found: 0,
+        pieces: [],
+        piecesLeft,
+        sprites: []
+      };
+    }
+
+    this.foundFragments[treasure].found++;
+
+    const foundPiece = this.foundFragments[treasure].piecesLeft.pop();
+    this.foundFragments[treasure].pieces.push(foundPiece);
+
+    const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, `fragment_${tc.id}_${foundPiece}`);
+    this.foundFragments[treasure].sprites.push(fragmentSprite);
+
+    console.log(this.foundFragments);
   }
 }
 
@@ -56,3 +103,18 @@ export enum MODE {
   DIGGING = 'dig',
   INVENTORY = 'inv'
 };
+
+export interface Treasure {
+  id: number;
+  name: string;
+  fragements: number;
+  value: number;
+  spawnsAt: number;
+};
+
+interface FoundFragments {
+  found: number;
+  pieces: number[];
+  piecesLeft: number[];
+  sprites: Phaser.GameObjects.Sprite[];
+}

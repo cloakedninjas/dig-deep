@@ -9,9 +9,9 @@ export default class Tile extends Phaser.GameObjects.Sprite {
     };
     health: number;
     events: Phaser.Events.EventEmitter;
-    treasure: any;
+    treasure: number;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number, treasure?: any) {
+    constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number, treasure?: number) {
         super(scene, 0, 0, null);
 
         this.grid = {
