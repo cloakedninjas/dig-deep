@@ -23,6 +23,10 @@
     "arrow": {
       "file": "arrow.png",
       "size": 85726
+    },
+    "polaroid": {
+      "file": "polaroid.png",
+      "size": 85726
     }
   },
   "audio": {},

@@ -20,7 +20,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
     moneyLabel: Phaser.GameObjects.Text;
     titleLabel: Phaser.GameObjects.Text;
     descLabel: Phaser.GameObjects.Text;
-
+    polaroidBg: Phaser.GameObjects.Image;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -88,6 +88,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
         this.descLabel.setOrigin(0, 0);
         this.add(this.descLabel);
+
+        this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 320, 'polaroid');
+        this.polaroidBg.setOrigin(0.5, 0.45);
+        this.add(this.polaroidBg);
     }
 
     show() {
@@ -168,6 +172,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
     }
 
     private selectItem(itemId: number, piece: number, i: number) {
+        const maxAngle = 60;
+        const angleSection = maxAngle / 10;
+        const offset = piece % 2 === 0 ? maxAngle / 2 : 0;
+        this.polaroidBg.setAngle((piece * angleSection) - offset);
         console.log(itemId, piece, i);
     }
 }
