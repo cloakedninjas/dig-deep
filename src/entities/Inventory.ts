@@ -18,6 +18,9 @@ export default class Inventory extends Phaser.GameObjects.Container {
     fontColor: string = '#000';
     money: number;
     moneyLabel: Phaser.GameObjects.Text;
+    titleLabel: Phaser.GameObjects.Text;
+    descLabel: Phaser.GameObjects.Text;
+
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -64,11 +67,34 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
         this.moneyLabel.setOrigin(1, 0);
         this.add(this.moneyLabel);
+
+        this.titleLabel = new Phaser.GameObjects.Text(scene, 570, 50, 'FINDINGS', {
+            fontSize: '42px bold',
+            align: 'center',
+            fontFamily: this.fontFamily,
+            color: this.fontColor
+        });
+        this.titleLabel.setOrigin(0.5, 0);
+        this.add(this.titleLabel);
+
+        this.descLabel = new Phaser.GameObjects.Text(scene, 460, 110, '', {
+            fontSize: '14px',
+            align: 'left',
+            fontFamily: this.fontFamily,
+            color: this.fontColor,
+            wordWrap: {
+                width: 240
+            }
+        });
+        this.descLabel.setOrigin(0, 0);
+        this.add(this.descLabel);
     }
 
     show() {
         this.currentPage = 0;
         this.allFragments = [];
+
+        let i = 0;
 
         this.discoveries.forEach((discovery, itemId) => {
             discovery.pieces.forEach(piece => {
@@ -76,12 +102,16 @@ export default class Inventory extends Phaser.GameObjects.Container {
                 const spriteName = 'item_large';
                 const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, spriteName);
                 fragmentSprite.setOrigin(0, 0);
+                fragmentSprite.setInteractive();
+                fragmentSprite.on(Phaser.Input.Events.POINTER_DOWN, this.selectItem.bind(this, itemId, piece, i));
 
                 this.allFragments.push({
                     id: itemId,
                     piece,
                     sprite: fragmentSprite
                 });
+
+                i++;
             });
 
         });
@@ -137,7 +167,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         }
     }
 
-    private selectItem() {
-
+    private selectItem(itemId: number, piece: number, i: number) {
+        console.log(itemId, piece, i);
     }
 }
