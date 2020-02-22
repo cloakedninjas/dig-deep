@@ -20,18 +20,24 @@ export default class DigSite extends Phaser.GameObjects.Container {
         this.events = new Phaser.Events.EventEmitter();
 
         this.generateLayer(0);
+        this.generateLayer(1);
     }
 
     private generateLayer(depth: number) {
         const layer: Tile[][] = [];
+        const layerSize = config.layerWidth * config.layerHeight;
     
         for (let x = 0; x < config.layerWidth; x++) {
           layer[x] = [];
           
           for (let y = 0; y < config.layerHeight; y++) {
-            const treasureIndex = (x * config.layerHeight) + y;
+            const treasureIndex = (depth * layerSize) + (x * config.layerHeight) + y;
 
-            // console.log(x, y, treasureIndex);            
+            //            
+
+            if (this.treasureAllocation[treasureIndex]) {
+                console.log(x, y, treasureIndex);
+            }
             
             const health = config.healthPerLayer[depth];
             const tile = new Tile(this.scene, x, y, depth, health, this.treasureAllocation[treasureIndex]);

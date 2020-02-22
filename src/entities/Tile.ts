@@ -14,7 +14,7 @@ export default class Tile extends Phaser.GameObjects.Sprite {
 
         // const textureFile = `dirt_${z}_${health}`;
 
-        const textureFile = 'dirt_1';
+        const textureFile = 'dirt_' + (z + 1);
         this.setTexture(textureFile);
         
         this.x = x * this.width;

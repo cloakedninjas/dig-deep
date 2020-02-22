@@ -4,6 +4,10 @@
       "file": "dirt_1.png",
       "size": 85726
     },
+    "dirt_2": {
+      "file": "dirt_2.png",
+      "size": 85726
+    },
     "test": {
       "file": "test.png",
       "size": 85726
