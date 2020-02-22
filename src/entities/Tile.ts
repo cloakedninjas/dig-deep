@@ -18,6 +18,11 @@ export default class Tile extends Phaser.GameObjects.Sprite {
         };
         this.health = health;
         this.treasure = treasure;
+
+        if (this.treasure) {
+            this.setTint(111111);
+        }
+
         this.setOrigin(0, 0);
 
         // const textureFile = `dirt_${z}_${health}`;

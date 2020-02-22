@@ -1,54 +1,85 @@
+import { shuffle } from '../lib/helpers';
 import Tile, { TILE_EVENTS } from '../entities/Tile';
 import * as config from '../config/config.json';
-import * as treasure from '../config/treasure.json';
+import * as treasureConfig from '../config/treasure.json';
 
 export default class DigSite extends Phaser.GameObjects.Container {
     layers: Tile[][][];
     tool: number;
-    treasureAllocation: number[];
+    fragmentDistribution: number[][];
     events: Phaser.Events.EventEmitter;
+    layerSize: number;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, null);
-        this.layers =  new Array(config.maxLayers);
-
-        this.treasureAllocation = new Array(config.layerHeight * config.layerWidth * config.maxLayers);
-
-        this.treasureAllocation[5] = 1;
-
-        this.tool = 2;
+        this.layers = new Array(config.maxLayers);
+        this.layerSize = config.layerWidth * config.layerHeight;
+        this.fragmentDistribution = new Array(config.maxLayers);
+        this.tool = 1;
         this.events = new Phaser.Events.EventEmitter();
 
-        this.generateLayer(1);
-        this.generateLayer(0);
+        treasureConfig.forEach((treasure) => {
+            const pieces = [];
 
-        /* this.sort('z', (a, b) => {
-            return 0; // 0, 1, -1
-        }); */
+            for (let f = 0; f < treasure.fragments; f++) {
+                pieces.push(treasure.id);
+            }
+
+            pieces.forEach(piece => {
+                // get random spawn-limited depth value
+                const depth = Phaser.Math.Between(treasure.spawnsAt, config.maxLayers - 1);
+
+                if (!this.fragmentDistribution[depth]) {
+                    this.fragmentDistribution[depth] = [];
+                }
+
+                this.fragmentDistribution[depth].push(piece);
+            });
+        });
+
+        for (let i = config.maxLayers; i > 0; i--) {
+            const depth = i - 1;
+
+            // increase array to layer size
+            this.fragmentDistribution[depth][this.layerSize - 1] = undefined;
+
+            // shuffle the fragment distribution at this level
+            this.fragmentDistribution[depth] = shuffle(this.fragmentDistribution[depth]);
+
+            this.generateLayer(depth);
+        }
     }
 
     private generateLayer(depth: number) {
         const layer: Tile[][] = [];
-        const layerSize = config.layerWidth * config.layerHeight;
-    
-        for (let x = 0; x < config.layerWidth; x++) {
-          layer[x] = [];
-          
-          for (let y = 0; y < config.layerHeight; y++) {
-            const treasureIndex = (depth * layerSize) + (x * config.layerHeight) + y;
 
-            const health = config.healthPerLayer[depth];
-            const tile = new Tile(this.scene, x, y, depth, health, this.treasureAllocation[treasureIndex]);
-            
-            this.add(tile);
-            layer[x][y] = tile;
-         
-            tile.events.on(TILE_EVENTS.TAP, this.handleTileTap, this);
-            tile.events.on(TILE_EVENTS.DISCOVER, this.handleDiscovery, this);
-            tile.events.on(TILE_EVENTS.EXTRA_DMG, this.handleExtraDamage, this);
-          }
+        for (let x = 0; x < config.layerWidth; x++) {
+            layer[x] = [];
+
+            for (let y = 0; y < config.layerHeight; y++) {
+                const treasureIndex = (x * config.layerHeight) + y;
+
+                const health = config.healthPerLayer[depth];
+                const tile = new Tile(this.scene, x, y, depth, health, this.fragmentDistribution[depth][treasureIndex]);
+
+                this.add(tile);
+                layer[x][y] = tile;
+
+                if (this.fragmentDistribution[depth][treasureIndex]) {
+                    const text = this.fragmentDistribution[depth][treasureIndex].toString();
+                    const style: Phaser.Types.GameObjects.Text.TextStyle = {
+                        fontFamily: 'Arial'
+                    };
+
+                    this.add(new Phaser.GameObjects.Text(this.scene, tile.x, tile.y, text, style));
+                }
+
+                tile.events.on(TILE_EVENTS.TAP, this.handleTileTap, this);
+                tile.events.on(TILE_EVENTS.DISCOVER, this.handleDiscovery, this);
+                tile.events.on(TILE_EVENTS.EXTRA_DMG, this.handleExtraDamage, this);
+            }
         }
-    
+
         this.layers[depth] = layer;
     }
 
@@ -59,7 +90,7 @@ export default class DigSite extends Phaser.GameObjects.Container {
     private handleDiscovery(treasure: any) {
         this.events.emit(SITE_EVENTS.DISCOVER, treasure);
     }
-    
+
     private handleExtraDamage(tile: Tile, damage: number) {
         // find tile underneath, apply extra damage
         const grid = tile.grid;
@@ -75,7 +106,7 @@ export default class DigSite extends Phaser.GameObjects.Container {
                 break;
             }
         }
-    }    
+    }
 }
 
 export enum SITE_EVENTS {

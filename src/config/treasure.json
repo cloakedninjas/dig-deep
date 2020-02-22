@@ -3,6 +3,14 @@
         "id": 1,
         "name": "Urn",
         "fragments": 4,
-        "value": 18
+        "value": 18,
+        "spawnsAt": 0
+    },
+    {
+        "id": 2,
+        "name": "Triceratops Skeleton",
+        "fragments": 5,
+        "value": 45,
+        "spawnsAt": 1
     }
 ]
