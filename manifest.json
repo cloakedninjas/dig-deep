@@ -20,13 +20,27 @@
       "file": "item_large.png",
       "size": 85726
     },
-    "arrow": {
-      "file": "arrow.png",
-      "size": 85726
-    },
     "polaroid": {
       "file": "polaroid.png",
       "size": 85726
+    }
+  },
+  "spritesheet": {
+    "arrow_button": {
+      "file": "arrow.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 26,
+        "frameHeight": 39
+      }
+    },
+    "sell_button": {
+      "file": "button_sell.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 43,
+        "frameHeight": 24
+      }
     }
   },
   "audio": {},

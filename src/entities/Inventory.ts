@@ -18,7 +18,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
     fontColor: string = '#000';
     money: number;
     moneyLabel: Phaser.GameObjects.Text;
-    titleLabel: Phaser.GameObjects.Text;
     descLabel: Phaser.GameObjects.Text;
     polaroidBg: Phaser.GameObjects.Image;
 
@@ -40,12 +39,12 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
         const y = 412;
 
-        const prevButton = new Button(scene, 121, y, 'arrow');
+        const prevButton = new Button(scene, 121, y, 'arrow_button', null, 1);
         prevButton.setOrigin(0, 0);
         prevButton.on(Phaser.Input.Events.POINTER_DOWN, this.pagePrev, this);
         this.add(prevButton);
 
-        const nextButton = new Button(scene, 313, y, 'arrow');
+        const nextButton = new Button(scene, 313, y, 'arrow_button', null, 1);
         nextButton.setOrigin(0, 0);
         nextButton.flipX = true;
         nextButton.on(Phaser.Input.Events.POINTER_DOWN, this.pageNext, this);
@@ -67,15 +66,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
         this.moneyLabel.setOrigin(1, 0);
         this.add(this.moneyLabel);
-
-        this.titleLabel = new Phaser.GameObjects.Text(scene, 570, 50, 'FINDINGS', {
-            fontSize: '42px bold',
-            align: 'center',
-            fontFamily: this.fontFamily,
-            color: this.fontColor
-        });
-        this.titleLabel.setOrigin(0.5, 0);
-        this.add(this.titleLabel);
 
         this.descLabel = new Phaser.GameObjects.Text(scene, 460, 110, '', {
             fontSize: '14px',
@@ -152,7 +142,14 @@ export default class Inventory extends Phaser.GameObjects.Container {
             fragment.sprite.scale = 0.6;
             fragment.sprite.x = (spriteW * (i % this.cols)) + startX;
             fragment.sprite.y = (spriteH * Math.floor(i / this.rows)) + startY;
-            fragment.sprite.tint = 200000;
+            fragment.sprite.tint = 2000;
+
+            let x = fragment.sprite.x + 30;
+            let y = fragment.sprite.y + 86;
+            const sellButton = new Button(this.scene, x, y, 'sell_button', 1, 2);
+            sellButton.setOrigin(0, 0);
+            sellButton.on(Phaser.Input.Events.POINTER_DOWN, this.sellItem.bind(this, fragment));
+            this.itemsContainer.add(sellButton);
         });
     }
 
@@ -172,10 +169,14 @@ export default class Inventory extends Phaser.GameObjects.Container {
     }
 
     private selectItem(itemId: number, piece: number, i: number) {
-        const maxAngle = 60;
+        const maxAngle = 50;
         const angleSection = maxAngle / 10;
         const offset = piece % 2 === 0 ? maxAngle / 2 : 0;
         this.polaroidBg.setAngle((piece * angleSection) - offset);
         console.log(itemId, piece, i);
+    }
+
+    private sellItem(item: any) {
+        console.log(item)
     }
 }

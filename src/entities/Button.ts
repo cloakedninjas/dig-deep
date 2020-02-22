@@ -4,7 +4,9 @@ export default class Button extends Phaser.GameObjects.Sprite {
     constructor(scene: Scene, x: number, y: number, texture: string, hoverFrame?: number, clickFrame?: number) {
         super(scene, x, y, texture);
 
-        this.setInteractive();
+        this.setInteractive({
+            useHandCursor: true
+        });
 
         if (hoverFrame) {
             this.on(Phaser.Input.Events.POINTER_OVER, () => {
