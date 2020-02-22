@@ -15,6 +15,14 @@
     "bag": {
       "file": "bag.png",
       "size": 85726
+    },
+    "item_large": {
+      "file": "item_large.png",
+      "size": 85726
+    },
+    "arrow": {
+      "file": "arrow.png",
+      "size": 85726
     }
   },
   "audio": {},

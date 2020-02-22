@@ -1,7 +1,8 @@
-import {Scene} from 'phaser';
-import DigSite, {SITE_EVENTS} from '../entities/DigSite';
+import { Scene } from 'phaser';
+import DigSite, { SITE_EVENTS } from '../entities/DigSite';
+import Inventory from '../entities/Inventory';
 import Tool from '../entities/Tool';
-import {shuffle} from '../lib/helpers';
+import { shuffle } from '../lib/helpers';
 import * as config from '../config/config.json';
 import * as treasureConfig from '../config/treasure.json';
 
@@ -11,6 +12,7 @@ export class Game extends Scene {
   foundFragments: FoundFragments[];
   daysLeft: number;
   tool: Tool;
+  inventory: Inventory;
 
   constructor() {
     super({
@@ -34,7 +36,24 @@ export class Game extends Scene {
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
     this.digSite.events.on(SITE_EVENTS.TAP, this.handleTap, this);
 
-    this.switchMode(MODE.DIGGING);
+    //this.switchMode(MODE.DIGGING);
+
+    const sprites = [];
+    for (let i = 0; i < 13; i++) {
+      const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, 'item_large');
+      fragmentSprite.setOrigin(0, 0);
+
+      sprites.push(fragmentSprite);
+    }
+
+    this.foundFragments[1] = {
+      found: 0,
+      pieces: [],
+      piecesLeft: [],
+      sprites
+    };
+
+    this.switchMode(MODE.INVENTORY);
   }
 
   private handleTap() {
@@ -49,6 +68,13 @@ export class Game extends Scene {
     this.mode = mode;
 
     if (this.mode === MODE.INVENTORY) {
+      if (!this.inventory) {
+        this.inventory = new Inventory(this);
+        this.inventory.discoveries = this.foundFragments;
+        this.add.existing(this.inventory);
+      }
+
+      this.inventory.show();
       this.daysLeft--;
 
       if (this.daysLeft <= 0) {
@@ -91,7 +117,10 @@ export class Game extends Scene {
     const foundPiece = this.foundFragments[treasure].piecesLeft.pop();
     this.foundFragments[treasure].pieces.push(foundPiece);
 
-    const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, `fragment_${tc.id}_${foundPiece}`);
+    //  `fragment_${tc.id}_${foundPiece}`
+    const spriteName = 'item_large';
+    const fragmentSprite = new Phaser.GameObjects.Sprite(this, 0, 0, spriteName);
+    fragmentSprite.setOrigin(0, 0);
     this.foundFragments[treasure].sprites.push(fragmentSprite);
 
     console.log(this.foundFragments);
