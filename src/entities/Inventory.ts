@@ -7,11 +7,14 @@ const TWEEN_DURATION: number = 1000;
 export default class Inventory extends Phaser.GameObjects.Container {
     discoveries: FoundFragments[];
     itemsContainer: Phaser.GameObjects.Container;
+    pageLabel: Phaser.GameObjects.Text;
     totalPages: number;
     currentPage: number;
     cols: number = 3;
     rows: number = 3;
     pageSize: number;
+    fontFamily: string = 'Arial, Helvetica';
+    fontColor: string = '#000';
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -29,16 +32,26 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.itemsContainer = new Phaser.GameObjects.Container(scene, 0, 0);
         this.add(this.itemsContainer);
 
-        const prevButton = new Button(scene, 100, 400, 'arrow');
+        const y = 412;
+
+        const prevButton = new Button(scene, 121, y, 'arrow');
         prevButton.setOrigin(0, 0);
         prevButton.on(Phaser.Input.Events.POINTER_DOWN, this.pagePrev, this);
         this.add(prevButton);
 
-        const nextButton = new Button(scene, 300, 400, 'arrow');
+        const nextButton = new Button(scene, 313, y, 'arrow');
         nextButton.setOrigin(0, 0);
         nextButton.flipX = true;
         nextButton.on(Phaser.Input.Events.POINTER_DOWN, this.pageNext, this);
         this.add(nextButton);
+
+        this.pageLabel = new Phaser.GameObjects.Text(scene, 200, 418, '', {
+            fontSize: '26px bold',
+            align: 'center',
+            fontFamily: this.fontFamily,
+            color: this.fontColor
+        });
+        this.add(this.pageLabel);
     }
 
     show() {
@@ -73,6 +86,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         const endI = startI + this.pageSize;
 
         this.itemsContainer.removeAll();
+        this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.totalPages;
 
         this.discoveries.forEach(discovery => {
             discovery.sprites.forEach(sprite => {
@@ -91,15 +105,16 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
     private pagePrev() {
         if (this.currentPage > 0) {
-            this.createPage(this.currentPage - 1);
             this.currentPage--;
+            this.createPage(this.currentPage);
+
         }
     }
 
     private pageNext() {
         if (this.currentPage < this.totalPages - 1) {
-            this.createPage(this.currentPage + 1);
             this.currentPage++;
+            this.createPage(this.currentPage);
         }
     }
 }
