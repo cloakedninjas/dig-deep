@@ -1,5 +1,9 @@
 export default class Tile extends Phaser.GameObjects.Sprite {
-    z: number;
+    grid: {
+        x: number;
+        y: number;
+        z: number;
+    };
     health: number;
     events: Phaser.Events.EventEmitter;
     treasure: any;
@@ -7,7 +11,11 @@ export default class Tile extends Phaser.GameObjects.Sprite {
     constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number, treasure?: any) {
         super(scene, 0, 0, null);
 
-        this.z = z;
+        this.grid = {
+            x,
+            y,
+            z
+        };
         this.health = health;
         this.treasure = treasure;
         this.setOrigin(0, 0);
@@ -36,6 +44,10 @@ export default class Tile extends Phaser.GameObjects.Sprite {
                 this.events.emit(TILE_EVENTS.DISCOVER, this.treasure);
             }
 
+            if (this.health < 0) {
+                this.events.emit(TILE_EVENTS.EXTRA_DMG, this, Math.abs(this.health));
+            }
+
             this.destroy();
         }
     }
@@ -55,5 +67,6 @@ export default class Tile extends Phaser.GameObjects.Sprite {
 
 export enum TILE_EVENTS {
     TAP = 'tap',
-    DISCOVER = 'discover'
+    DISCOVER = 'discover',
+    EXTRA_DMG = "extra_dmg"
 };
