@@ -4,12 +4,12 @@ export default class Tool {
     power: number;
 
     constructor(actions: number, power: number) {
-        this.actions = actions;
-        this.power = power;
-        this.refresh();
+      this.actions = actions;
+      this.power = power;
+      this.refresh();
     }
 
     refresh() {
-        this.actionsLeft = this.actions;
+      this.actionsLeft = this.actions;
     }
 }

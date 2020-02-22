@@ -1,6 +1,6 @@
-import { Game } from './game';
-import { Game as GameScene } from './scenes/game';
-import { Preload } from './scenes/preload';
+import {Game} from './game';
+import {Game as GameScene} from './scenes/game';
+import {Preload} from './scenes/preload';
 
 const config: Phaser.Types.Core.GameConfig = {
   title: 'Demo Game',

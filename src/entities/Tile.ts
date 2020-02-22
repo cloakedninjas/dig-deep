@@ -1,4 +1,4 @@
-import { Game, MODE } from '../scenes/game';
+import {Game, MODE} from '../scenes/game';
 
 export default class Tile extends Phaser.GameObjects.Sprite {
     scene: Game;
@@ -12,73 +12,73 @@ export default class Tile extends Phaser.GameObjects.Sprite {
     treasure: number;
 
     constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number, treasure?: number) {
-        super(scene, 0, 0, null);
+      super(scene, 0, 0, null);
 
-        this.grid = {
-            x,
-            y,
-            z
-        };
-        this.health = health;
-        this.treasure = treasure;
+      this.grid = {
+        x,
+        y,
+        z,
+      };
+      this.health = health;
+      this.treasure = treasure;
 
-        if (this.treasure) {
-            this.setTint(111111);
-        }
+      if (this.treasure) {
+        this.setTint(111111);
+      }
 
-        this.setOrigin(0, 0);
+      this.setOrigin(0, 0);
 
-        // const textureFile = `dirt_${z}_${health}`;
+      // const textureFile = `dirt_${z}_${health}`;
 
-        const textureFile = 'dirt_' + (z + 1);
-        this.setTexture(textureFile);
+      const textureFile = 'dirt_' + (z + 1);
+      this.setTexture(textureFile);
 
-        this.x = x * this.width;
-        this.y = y * this.height;
+      this.x = x * this.width;
+      this.y = y * this.height;
 
-        this.setInteractive();
-        this.on('pointerup', this.handleClick, this);
-        this.on('pointerover', this.handleOver, this);
-        this.on('pointerout', this.handleOut, this);
+      this.setInteractive();
+      this.on('pointerup', this.handleClick, this);
+      this.on('pointerover', this.handleOver, this);
+      this.on('pointerout', this.handleOut, this);
 
-        this.events = new Phaser.Events.EventEmitter();
+      this.events = new Phaser.Events.EventEmitter();
     }
 
     receiveDamage(damage: number) {
-        this.health -= damage;
+      this.health -= damage;
 
-        if (this.health <= 0) {
-            if (this.treasure) {
-                this.events.emit(TILE_EVENTS.DISCOVER, this.treasure);
-            }
-
-            if (this.health < 0) {
-                this.events.emit(TILE_EVENTS.EXTRA_DMG, this, Math.abs(this.health));
-            }
-
-            this.destroy();
+      if (this.health <= 0) {
+        if (this.treasure) {
+          this.events.emit(TILE_EVENTS.DISCOVER, this.treasure);
         }
+
+        if (this.health < 0) {
+          this.events.emit(TILE_EVENTS.EXTRA_DMG, this, Math.abs(this.health));
+        }
+
+        this.destroy();
+      }
     }
 
     private handleClick() {
-        if (this.scene.mode !== MODE.DIGGING) {
-            return;
-        }
+      if (this.scene.mode !== MODE.DIGGING) {
+        return;
+      }
 
-        this.events.emit(TILE_EVENTS.TAP, this);
+      this.events.emit(TILE_EVENTS.TAP, this);
     }
 
     private handleOver(pointer: Phaser.Input.Pointer) {
-        this.setTint(0x44ff44);
+      this.setTint(0x44ff44);
     }
 
     private handleOut() {
-        this.clearTint();
+      this.clearTint();
     }
 }
 
 export enum TILE_EVENTS {
     TAP = 'tap',
     DISCOVER = 'discover',
-    EXTRA_DMG = "extra_dmg"
+    EXTRA_DMG = 'extra_dmg'
 };

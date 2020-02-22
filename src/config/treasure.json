@@ -12,5 +12,13 @@
         "fragments": 5,
         "value": 45,
         "spawnsAt": 1
+    },
+    {
+        "id": 3,
+        "name": "Broken CD",
+        "fragments": 1,
+        "spawnsAt": 0,
+        "value": 2,
+        "trash": true
     }
 ]

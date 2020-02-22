@@ -1,7 +1,7 @@
-import { Scene } from 'phaser';
-import DigSite, { SITE_EVENTS } from '../entities/DigSite';
+import {Scene} from 'phaser';
+import DigSite, {SITE_EVENTS} from '../entities/DigSite';
 import Tool from '../entities/Tool';
-import { shuffle } from '../lib/helpers';
+import {shuffle} from '../lib/helpers';
 import * as config from '../config/config.json';
 import * as treasureConfig from '../config/treasure.json';
 
@@ -59,7 +59,6 @@ export class Game extends Scene {
         // modal end of day
         // show inventory
       }
-
     } else {
       // close inventory
     }
@@ -68,7 +67,7 @@ export class Game extends Scene {
   private handleDiscovery(treasure: number) {
     console.log('discovery', treasure);
 
-    const tc = treasureConfig.find(tc => tc.id === treasure);
+    const tc = treasureConfig.find((tc) => tc.id === treasure);
 
     if (!this.foundFragments[treasure]) {
       let piecesLeft = [];
@@ -83,7 +82,7 @@ export class Game extends Scene {
         found: 0,
         pieces: [],
         piecesLeft,
-        sprites: []
+        sprites: [],
       };
     }
 
@@ -110,9 +109,10 @@ export interface Treasure {
   fragements: number;
   value: number;
   spawnsAt: number;
+  trash?: boolean;
 };
 
-interface FoundFragments {
+export interface FoundFragments {
   found: number;
   pieces: number[];
   piecesLeft: number[];

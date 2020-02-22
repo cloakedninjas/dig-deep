@@ -11,6 +11,10 @@
     "base": {
       "file": "base.png",
       "size": 85726
+    },
+    "bag": {
+      "file": "bag.png",
+      "size": 85726
     }
   },
   "audio": {},
