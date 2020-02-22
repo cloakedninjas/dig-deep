@@ -1,0 +1,6 @@
+{
+    "layerWidth": 8,
+    "layerHeight": 4,
+    "maxLayers": 5,
+    "healthPerLayer": [1, 1, 2, 2, 3]
+}

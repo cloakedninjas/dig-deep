@@ -1,0 +1,14 @@
+{
+  "image": {
+    "dirt_1": {
+      "file": "dirt_1.png",
+      "size": 85726
+    },
+    "test": {
+      "file": "test.png",
+      "size": 85726
+    }
+  },
+  "audio": {},
+  "json": {}
+}
