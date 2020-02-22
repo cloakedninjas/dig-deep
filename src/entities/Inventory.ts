@@ -15,6 +15,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
     pageSize: number;
     fontFamily: string = 'Arial, Helvetica';
     fontColor: string = '#000';
+    money: number;
+    moneyLabel: Phaser.GameObjects.Text;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -52,6 +54,15 @@ export default class Inventory extends Phaser.GameObjects.Container {
             color: this.fontColor
         });
         this.add(this.pageLabel);
+
+        this.moneyLabel = new Phaser.GameObjects.Text(scene, 280, 503, '$12345', {
+            fontSize: '24px bold',
+            align: 'right',
+            fontFamily: this.fontFamily,
+            color: this.fontColor
+        });
+        this.moneyLabel.setOrigin(1, 0);
+        this.add(this.moneyLabel);
     }
 
     show() {
@@ -62,6 +73,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         }, 0);
 
         this.totalPages = Math.ceil(totalEntries / this.pageSize);
+        this.moneyLabel.text = this.money.toString();
 
         this.createPage(0);
 

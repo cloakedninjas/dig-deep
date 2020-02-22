@@ -13,6 +13,7 @@ export class Game extends Scene {
   daysLeft: number;
   tool: Tool;
   inventory: Inventory;
+  money: number = 0;
 
   constructor() {
     super({
@@ -71,6 +72,7 @@ export class Game extends Scene {
       if (!this.inventory) {
         this.inventory = new Inventory(this);
         this.inventory.discoveries = this.foundFragments;
+        this.inventory.money = this.money;
         this.add.existing(this.inventory);
       }
 
