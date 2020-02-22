@@ -1,12 +1,15 @@
 export default class Tile extends Phaser.GameObjects.Sprite {
     z: number;
     health: number;
+    events: Phaser.Events.EventEmitter;
+    treasure: any;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number) {
+    constructor(scene: Phaser.Scene, x: number, y: number, z: number, health: number, treasure?: any) {
         super(scene, 0, 0, null);
 
         this.z = z;
         this.health = health;
+        this.treasure = treasure;
         this.setOrigin(0, 0);
 
         // const textureFile = `dirt_${z}_${health}`;
@@ -17,24 +20,40 @@ export default class Tile extends Phaser.GameObjects.Sprite {
         this.x = x * this.width;
         this.y = y * this.height;
         
-        console.log(this.x, this.y);
-
-        //this.setInteractive(new Phaser.Geom.Rectangle(this.x, this.y, this.width, this.height), Phaser.Geom.Rectangle.Contains);
         this.setInteractive();
         this.on('pointerup', this.handleClick, this);
         this.on('pointerover', this.handleOver, this);
         this.on('pointerout', this.handleOut, this);
+
+        this.events = new Phaser.Events.EventEmitter();
     }
 
-    handleClick() {
-        //if ()
+    receiveDamage(damage: number) {
+        this.health -= damage;
+
+        if (this.health <= 0) {
+            if (this.treasure) {
+                this.events.emit(TILE_EVENTS.DISCOVER, this.treasure);
+            }
+
+            this.destroy();
+        }
     }
 
-    handleOver(pointer: Phaser.Input.Pointer) {
+    private handleClick() {
+        this.events.emit(TILE_EVENTS.TAP, this);
+    }
+
+    private handleOver(pointer: Phaser.Input.Pointer) {
         this.setTint(0x44ff44);
     }
 
-    handleOut() {
+    private handleOut() {
         this.clearTint();
     }
 }
+
+export enum TILE_EVENTS {
+    TAP = 'tap',
+    DISCOVER = 'discover'
+};
