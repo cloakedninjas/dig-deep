@@ -1,25 +1,46 @@
 {
     "layerWidth": 6,
     "layerHeight": 6,
-    "maxLayers": 4,
+    "maxLayers": 2,
     "healthPerLayer": [
         2,
         2,
+        3,
         3,
         4
     ],
     "workDays": 7,
     "tool": {
         "startingPower": 1,
-        "startingActions": 2,
+        "startingActions": 3,
         "upgrades": [
             {
                 "cost": 10,
                 "actionIncrease": 2
             },
             {
-                "cost": 25,
+                "cost": 15,
                 "strengthIncrease": 1
+            },
+            {
+                "cost": 30,
+                "actionIncrease": 5
+            },
+            {
+                "cost": 40,
+                "strengthIncrease": 1
+            },
+            {
+                "cost": 75,
+                "actionIncrease": 10
+            },
+            {
+                "cost": 150,
+                "strengthIncrease": 1
+            },
+            {
+                "cost": 200,
+                "actionIncrease": 20
             }
         ]
     },

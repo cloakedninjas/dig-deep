@@ -1,41 +1,135 @@
 [
     {
         "id": 1,
-        "name": "Urn",
-        "fragments": 4,
-        "value": 18,
-        "spawnsAt": 0
+        "name": "Amphora",
+        "fragments": 3,
+        "value": 20,
+        "spawnsAt": 0,
+        "bonus": 120,
+        "description": "I am overall desc",
+        "pieceDescriptions": [
+            "Piece 1",
+            "Piece 2"
+        ]
     },
     {
         "id": 2,
-        "name": "Triceratops Skeleton",
-        "fragments": 5,
-        "value": 45,
-        "spawnsAt": 1
-    },
-    {
-        "id": 3,
-        "name": "Broken CD",
-        "fragments": 1,
+        "name": "Vase",
+        "fragments": 6,
+        "value": 20,
         "spawnsAt": 0,
-        "value": 2,
-        "trash": true
+        "bonus": 120
     },
     {
         "id": 4,
-        "name": "Broken CD",
-        "fragments": 5,
-        "spawnsAt": 0,
-        "value": 2,
-        "trash": true
+        "name": "Statue",
+        "fragments": 4,
+        "value": 30,
+        "spawnsAt": 2,
+        "bonus": 120
+    },
+    {
+        "id": 5,
+        "name": "Tablet",
+        "fragments": 4,
+        "value": 30,
+        "spawnsAt": 2,
+        "bonus": 120
     },
     {
         "id": 7,
         "name": "Triceratops Skeleton",
-        "description": "A very old old thing",
         "fragments": 5,
         "value": 40,
-        "spawnsAt": 1,
-        "bonus": 90
+        "spawnsAt": 3,
+        "bonus": 200
+    },
+    {
+        "id": 8,
+        "name": "Wishbone",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 9,
+        "name": "Movie Prop",
+        "fragments": 1,
+        "value": 25,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 10,
+        "name": "Post Card",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 11,
+        "name": "Dirty Magazine",
+        "fragments": 1,
+        "value": 15,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 12,
+        "name": "VHS",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 13,
+        "name": "Lost ID Badge",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 14,
+        "name": "Bag of Weed",
+        "fragments": 1,
+        "value": 20,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 15,
+        "name": "",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 16,
+        "name": "Lost Sock",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 17,
+        "name": "Genie Lamp",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
+    },
+    {
+        "id": 18,
+        "name": "Floppy Disk",
+        "fragments": 1,
+        "value": 2,
+        "spawnsAt": 0,
+        "trash": true
     }
 ]

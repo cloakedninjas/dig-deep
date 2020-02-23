@@ -50,6 +50,38 @@
         "frameHeight": 37
       }
     },
+    "treasure_1": {
+      "file": "treasure_1.png",
+      "size": 36251,
+      "frameConfig": {
+        "frameWidth": 138,
+        "frameHeight": 138
+      }
+    },
+    "treasure_2": {
+      "file": "treasure_2.png",
+      "size": 36251,
+      "frameConfig": {
+        "frameWidth": 138,
+        "frameHeight": 138
+      }
+    },
+    "treasure_4": {
+      "file": "treasure_4.png",
+      "size": 36251,
+      "frameConfig": {
+        "frameWidth": 138,
+        "frameHeight": 138
+      }
+    },
+    "treasure_5": {
+      "file": "treasure_5.png",
+      "size": 36251,
+      "frameConfig": {
+        "frameWidth": 138,
+        "frameHeight": 138
+      }
+    },
     "treasure_7": {
       "file": "treasure_7.png",
       "size": 36251,

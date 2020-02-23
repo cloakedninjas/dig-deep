@@ -217,7 +217,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
             let x = (spriteW * (i % this.cols)) + startX;
             let y = (spriteH * Math.floor(i / this.rows)) + startY;
 
-            const fragmentBg = new Phaser.GameObjects.Sprite(this.scene, x, y, 'polaroid_1', fragment.piece);
+            const fragmentBg = new Phaser.GameObjects.Sprite(this.scene, x, y, 'polaroid_1');
             fragmentBg.setOrigin(0, 0);
             this.itemsContainer.add(fragmentBg);
 
@@ -286,7 +286,12 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.polaroidFragment.visible = true;
 
         const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
-        this.descLabel.text = itemDef.description;
+
+        if (itemDef.pieceDescriptions && itemDef.pieceDescriptions[fragment.piece]) {
+            this.descLabel.text = itemDef.pieceDescriptions[fragment.piece];
+        } else {
+            this.descLabel.text = 'Missing text .. wah wah - ' + fragment.id + ' - ' + fragment.piece;
+        }
 
         if (silent !== true) {
             this.sfx.inv_select.play();

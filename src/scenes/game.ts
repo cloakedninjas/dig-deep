@@ -145,8 +145,6 @@ export class Game extends Scene {
   }
 
   private handleDiscovery(treasure: number) {
-    console.log('discovery', treasure);
-
     const tc = treasureConfig.find((tc) => tc.id === treasure);
 
     if (!this.foundFragments[treasure]) {
