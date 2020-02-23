@@ -58,10 +58,8 @@ export default class DigSite extends Phaser.GameObjects.Container {
       this.generateLayer(depth);
 
       this.sfx = {
-        'ground_break_1': this.scene.sound.add('ground_break_1'),
-        'ground_break_2': this.scene.sound.add('ground_break_2'),
         'trash_1': this.scene.sound.add('trash_1'),
-        'trash_2': this.scene.sound.add('trash_2'),
+        'trash_2': this.scene.sound.add('trash_2')
       };
     }
   }

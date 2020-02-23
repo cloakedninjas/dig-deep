@@ -9,14 +9,14 @@
         3,
         4
     ],
-    "workDays": 1,
+    "workDays": 7,
     "tool": {
         "startingPower": 1,
-        "startingActions": 3,
+        "startingActions": 15,
         "upgrades": [
             {
-                "cost": 10,
-                "actionIncrease": 2
+                "cost": 5,
+                "actionIncrease": 5
             },
             {
                 "cost": 15,
@@ -28,18 +28,18 @@
             },
             {
                 "cost": 40,
-                "strengthIncrease": 1
+                "actionIncrease": 5
             },
             {
                 "cost": 75,
                 "actionIncrease": 10
             },
             {
-                "cost": 150,
+                "cost": 100,
                 "strengthIncrease": 1
             },
             {
-                "cost": 200,
+                "cost": 150,
                 "actionIncrease": 20
             }
         ]

@@ -168,7 +168,7 @@ export class Game extends Scene {
     const foundPiece = this.foundFragments[treasure].piecesLeft.pop();
     this.foundFragments[treasure].pieces.push(foundPiece);
 
-    console.log(this.foundFragments);
+    // console.log(this.foundFragments);
   }
 
   private dayChange() {
@@ -183,7 +183,7 @@ export class Game extends Scene {
   }
 
   private updateToolCounter() {
-    this.actionsLabel.text = this.tool.actionsLeft + ' / ' + this.tool.actions;
+    this.actionsLabel.text = this.tool.actionsLeft + '/' + this.tool.actions;
   }
 }
 

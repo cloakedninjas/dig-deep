@@ -9,8 +9,8 @@
         "description": "Sadly no wine in this one.",
         "pieceDescriptions": [
             "I'm not sure how to handle this.",
-            "Piece 2",
-            "Piece 3"
+            "Bottoms up!",
+            "This is the tops!"
         ]
     },
     {
@@ -20,12 +20,12 @@
         "value": 20,
         "spawnsAt": 0,
         "bonus": 120,
-        "description": "I am overall desc",
+        "description": "A vase with a face! This vase is cause for applause!",
         "pieceDescriptions": [
-            "I feel like something is staring at me.",
-            "Piece 2",
-            "Piece 3",
-            "Piece 4"
+            "I have to get to the bottom of this!",
+            "I'm grasping to figure this one out!",
+            "To be ornate to be? That is the question.",
+            "I feel like something is staring at me."
         ]
     },
     {
@@ -37,7 +37,7 @@
         "bonus": 120,
         "description": "This one has arms.",
         "pieceDescriptions": [
-            "Piece 1",
+            "I'm ahead of the competition!",
             "Is it a chest or a rear?",
             "I guess I hit rock bottom."
         ]
@@ -51,10 +51,10 @@
         "bonus": 120,
         "description": "Tablets have gotten a lot slimmer over the years.",
         "pieceDescriptions": [
-            "Piece 1",
-            "Piece 2",
-            "Piece 3",
-            "Piece 4"
+            "Glad I left no stone unturned.",
+            "This guy is set in his ways.",
+            "I'm going to have a rocky time deciphering this.",
+            "The writing's on the wall...well, a part of it."
         ]
     },
     {
@@ -85,7 +85,7 @@
     {
         "id": 9,
         "name": "Movie Prop",
-        "fragments": 1,
+        "fragments": 5,
         "value": 25,
         "spawnsAt": 0,
         "trash": true,
@@ -94,7 +94,7 @@
     {
         "id": 16,
         "name": "Long Lost Sock",
-        "fragments": 1,
+        "fragments": 5,
         "value": 2,
         "spawnsAt": 0,
         "trash": true,
@@ -103,7 +103,7 @@
     {
         "id": 18,
         "name": "Floppy Disk",
-        "fragments": 1,
+        "fragments": 5,
         "value": 2,
         "spawnsAt": 0,
         "trash": true,

@@ -57,11 +57,13 @@ export class Results extends Scene {
         }
       };
 
-      fragment.pieces.forEach(piece => {
-        const portraitPiece = new Phaser.GameObjects.Sprite(this, coords[itemId].x, coords[itemId].y, `treasure_end_${itemId}`, piece);
-        portraitPiece.setOrigin(0, 0);
-        this.add.existing(portraitPiece);
-      });
+      if (!itemConfig.trash) {
+        fragment.pieces.forEach(piece => {
+          const portraitPiece = new Phaser.GameObjects.Sprite(this, coords[itemId].x, coords[itemId].y, `treasure_end_${itemId}`, piece);
+          portraitPiece.setOrigin(0, 0);
+          this.add.existing(portraitPiece);
+        });
+      }
     });
 
     const style: Phaser.Types.GameObjects.Text.TextStyle = {

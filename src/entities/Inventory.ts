@@ -183,8 +183,11 @@ export default class Inventory extends Phaser.GameObjects.Container {
         let i = 0;
 
         this.discoveries.forEach((discovery, itemId) => {
+            const itemDef = treasureConfig.find(tc => tc.id === itemId);
+
             discovery.pieces.forEach(piece => {
-                const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, `treasure_${itemId}`, piece);
+                const frame = itemDef.trash ? 0 : piece;
+                const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, `treasure_${itemId}`, frame);
                 fragmentSprite.setOrigin(0, 0);
 
                 this.allFragments.push({
@@ -281,20 +284,20 @@ export default class Inventory extends Phaser.GameObjects.Container {
         const angleSection = maxAngle / 10;
         const offset = fragment.piece % 2 === 0 ? maxAngle / 2 : 0;
         const angle = (fragment.piece * angleSection) - offset;
+        const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
 
-        this.polaroidFragment.setTexture(`treasure_${fragment.id}`, fragment.piece);
+        const frame = itemDef.trash ? 0 : fragment.piece;
+        this.polaroidFragment.setTexture(`treasure_${fragment.id}`, frame);
         this.polaroidFragment.setAngle(angle);
         this.polaroidBg.setAngle(angle);
 
         this.polaroidBg.visible = true;
         this.polaroidFragment.visible = true;
 
-        const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
-
         if (itemDef.pieceDescriptions && itemDef.pieceDescriptions[fragment.piece]) {
             this.descLabel.text = itemDef.pieceDescriptions[fragment.piece];
-        } else {
-            this.descLabel.text = 'Missing text .. wah wah - ' + fragment.id + ' - ' + fragment.piece;
+        } else if (itemDef.description) {
+            this.descLabel.text = itemDef.description;
         }
 
         if (silent !== true) {
