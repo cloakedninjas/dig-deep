@@ -34,6 +34,7 @@
         "name": "Triceratops Skeleton",
         "fragments": 5,
         "value": 40,
-        "spawnsAt": 1
+        "spawnsAt": 1,
+        "bonus": 90
     }
 ]
