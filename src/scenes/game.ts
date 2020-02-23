@@ -101,6 +101,7 @@ export class Game extends Scene {
       }
     } else {
       this.refreshTool();
+      this.money = this.inventory.money;
 
       if (this.daysLeft !== config.workDays) {
         this.dayChange();

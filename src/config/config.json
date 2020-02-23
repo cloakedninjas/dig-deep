@@ -11,7 +11,7 @@
     "workDays": 7,
     "tool": {
         "startingPower": 1,
-        "startingActions": 20,
+        "startingActions": 2,
         "upgrades": [
             {
                 "cost": 10,
