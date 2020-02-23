@@ -15,6 +15,11 @@ export class Game extends Scene {
   inventory: Inventory;
   money: number = 0;
   actionsLabel: Phaser.GameObjects.Text;
+  music: {
+    dig: Phaser.Sound.WebAudioSound,
+    inv: Phaser.Sound.WebAudioSound
+  }
+  currentMusic: Phaser.Sound.WebAudioSound;
 
   constructor() {
     super({
@@ -45,6 +50,11 @@ export class Game extends Scene {
     });
     this.actionsLabel.setOrigin(0.5, 0);
     this.add.existing(this.actionsLabel);
+
+    this.music = {
+      dig: this.sound.add('music_main') as Phaser.Sound.WebAudioSound,
+      inv: this.sound.add('music_inv') as Phaser.Sound.WebAudioSound
+    }
 
     // this.switchMode(MODE.DIGGING);
 
@@ -107,6 +117,31 @@ export class Game extends Scene {
         this.dayChange();
       }
     }
+
+    this.switchMusic();
+  }
+
+  private switchMusic() {
+    if (this.currentMusic) {
+      /* this.tweens.add({
+        targets: this.currentMusic,
+        volume: 0,
+
+        ease: 'Linear',
+        duration: 500,
+
+        onComplete: () => {
+          
+          this.currentMusic.volume = 1;
+
+
+        }
+      }); */
+      this.currentMusic.stop();
+    }
+
+    this.music[this.mode].play();
+    this.currentMusic = this.music[this.mode];
   }
 
   private handleDiscovery(treasure: number) {

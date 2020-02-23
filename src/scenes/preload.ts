@@ -1,4 +1,4 @@
-import {Scene} from 'phaser';
+import { Scene } from 'phaser';
 import * as manifest from '../../manifest.json';
 
 const MB = 1024 * 1024;
@@ -97,7 +97,7 @@ export class Preload extends Scene {
       file.previousLoad = file.bytesLoaded;
     });
 
-    this.load.on('complete', function() {
+    this.load.on('complete', function () {
       progressBar.destroy();
       progressBox.destroy();
       loadingText.destroy();
@@ -118,6 +118,12 @@ export class Preload extends Scene {
         }
       });
     });
+
+    const head = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css?family=Neuton|Sedgwick+Ave&display=swap';
+    head.appendChild(link);
   }
 
   create() {

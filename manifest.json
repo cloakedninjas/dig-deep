@@ -99,6 +99,19 @@
       }
     }
   },
-  "audio": {},
+  "audio": {
+    "music_main": {
+      "file": "music/archaeology-sm.mp3",
+      "size": 85726
+    },
+    "music_inv": {
+      "file": "music/inventory-sm.mp3",
+      "size": 85726
+    },
+    "music_end": {
+      "file": "music/end-sm.mp3",
+      "size": 85726
+    }
+  },
   "json": {}
 }
