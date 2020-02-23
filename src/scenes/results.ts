@@ -14,7 +14,7 @@ export class Results extends Scene {
   }
 
   preload() {
-    this.load.image('results_bg', 'assets/image/result.png');
+    this.load.image('results_bg', 'assets/image/end_screen.png');
   }
 
   init(data: any) {
@@ -30,20 +30,22 @@ export class Results extends Scene {
       if (fragment.pieces.length === itemConfig.fragments) {
         this.score *= config.completionBonusMult;
       }
-
     });
-
-
-    // calc score
   }
 
   create() {
     const bg = this.add.image(0, 0, 'results_bg');
+    bg.setOrigin(0, 0);
 
-    const score = this.add.text(0, 0, this.score.toString(), {
-      fontFamily: config.fonts.normal,
-      fontSize: '32px'
-    });
+    const style: Phaser.Types.GameObjects.Text.TextStyle = {
+      fontFamily: config.fonts.cursive,
+      fontSize: '24px',
+      align: 'center',
+      color: config.fonts.colour
+    };
+    const score = this.add.text(400, 135, this.score.toString(), style);
+
+    score.setOrigin(0.5, 0);
 
   }
 }
