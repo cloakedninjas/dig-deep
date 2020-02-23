@@ -81,6 +81,22 @@
         "frameWidth": 73,
         "frameHeight": 73
       }
+    },
+    "dirt_3": {
+      "file": "dirt_3.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 73,
+        "frameHeight": 73
+      }
+    },
+    "dirt_4": {
+      "file": "dirt_4.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 73,
+        "frameHeight": 73
+      }
     }
   },
   "audio": {},
