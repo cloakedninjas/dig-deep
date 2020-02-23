@@ -78,16 +78,16 @@ export class Results extends Scene {
     let titleValue;
     let descValue;
 
-    if (this.score > 750) {
+    if (this.score > 600) {
       titleValue = 'Indiana Bones';
       descValue = 'Bone diggity! You\'ve mastered the art.';
-    } else if (this.score > 500) {
+    } else if (this.score > 400) {
       titleValue = 'Bonehunter';
       descValue = 'A bonafide archaeologist, no bones about it!';
-    } else if (this.score > 450) {
+    } else if (this.score > 250) {
       titleValue = 'Archaeologist';
       descValue = 'You\'ve got a bone to pick... with the ground!';
-    } else if (this.score > 300) {
+    } else if (this.score > 150) {
       titleValue = 'Archaeology Student';
       descValue = 'You\'ve really been boning up on the subject!';
     } else {
