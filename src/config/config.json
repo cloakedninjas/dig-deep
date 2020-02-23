@@ -12,7 +12,17 @@
     "workDays": 7,
     "tool": {
         "startingPower": 1,
-        "startingActions": 20
+        "startingActions": 20,
+        "upgrades": [
+            {
+                "cost": 10,
+                "actionIncrease": 2
+            },
+            {
+                "cost": 25,
+                "strengthIncrease": 1
+            }
+        ]
     },
     "fonts": {
         "cursive": "Sedgwick Ave",

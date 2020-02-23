@@ -81,11 +81,12 @@ export class Game extends Scene {
       if (!this.inventory) {
         this.inventory = new Inventory(this);
         this.inventory.discoveries = this.foundFragments;
-        this.inventory.money = this.money;
+        this.inventory.tool = this.tool;
         this.inventory.events.on(INV_EVENTS.NEXT_DAY, this.switchMode.bind(this, MODE.DIGGING));
         this.add.existing(this.inventory);
       }
 
+      this.inventory.money = this.money;
       this.children.bringToTop(this.inventory);
 
       if (this.daysLeft <= 0) {

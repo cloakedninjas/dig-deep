@@ -4,6 +4,7 @@ import { Scene } from 'phaser';
 import { Game } from '../scenes/game';
 import * as config from '../config/config.json';
 import * as treasureConfig from '../config/treasure.json';
+import Tool from './Tool';
 
 const TWEEN_DURATION: number = 1000;
 
@@ -19,8 +20,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
     cols: number = 3;
     rows: number = 3;
     pageSize: number;
-    fontFamily: string = 'Arial, Helvetica';
-    fontColor: string = '#000';
     money: number;
     moneyLabel: Phaser.GameObjects.Text;
     descLabel: Phaser.GameObjects.Text;
@@ -32,6 +31,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
     upgradeButton: Button;
     nextDayLabel: Phaser.GameObjects.Text;
     events: Phaser.Events.EventEmitter;
+    tool: Tool;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -66,16 +66,16 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.pageLabel = new Phaser.GameObjects.Text(scene, 200, 418, '', {
             fontSize: '26px bold',
             align: 'center',
-            fontFamily: this.fontFamily,
-            color: this.fontColor
+            fontFamily: config.fonts.cursive,
+            color: config.fonts.colour
         });
         this.add(this.pageLabel);
 
-        this.moneyLabel = new Phaser.GameObjects.Text(scene, 280, 503, '$12345', {
-            fontSize: '24px bold',
+        this.moneyLabel = new Phaser.GameObjects.Text(scene, 260, 500, '', {
+            fontSize: '32px bold',
             align: 'right',
-            fontFamily: this.fontFamily,
-            color: this.fontColor
+            fontFamily: config.fonts.cursive,
+            color: config.fonts.colour
         });
         this.moneyLabel.setOrigin(1, 0);
         this.add(this.moneyLabel);
@@ -83,8 +83,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.descLabel = new Phaser.GameObjects.Text(scene, 460, 110, '', {
             fontSize: '14px',
             align: 'left',
-            fontFamily: this.fontFamily,
-            color: this.fontColor,
+            fontFamily: config.fonts.cursive,
+            color: config.fonts.colour,
             wordWrap: {
                 width: 240
             }
@@ -115,7 +115,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
             fontSize: '14px',
             align: 'center',
             fontFamily: config.fonts.cursive,
-            color: this.fontColor
+            color: config.fonts.colour
         });
         this.upgradeInfo.setOrigin(0.5, 0);
         this.add(this.upgradeInfo);
@@ -132,7 +132,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
             fontSize: '20px bold',
             align: 'center',
             fontFamily: config.fonts.normal,
-            color: this.fontColor
+            color: config.fonts.colour
         });
         this.upgradePriceLabel.setOrigin(0.5, 0);
         this.add(this.upgradePriceLabel);
@@ -141,7 +141,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
             fontSize: '28px bold',
             align: 'center',
             fontFamily: config.fonts.cursive,
-            color: this.fontColor
+            color: config.fonts.colour
         });
         this.nextDayLabel.setOrigin(0.5, 0);
         this.nextDayLabel.setInteractive({
@@ -156,8 +156,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.currentPage = page || 0;
 
         this.moneyLabel.text = this.money.toString();
-        this.upgradeInfo.text = 'TOdo...';
-        this.upgradePriceLabel.text = '123';
+        this.upgradeInfo.text = this.tool.getNextUpgrade();
+        this.upgradePriceLabel.text = this.tool.getNextUpradeCost().toString();
 
         this.createFragmentListing(this.currentPage);
         this.createPage(this.currentPage);
@@ -315,6 +315,26 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
     private buyUpgrade() {
         this.upgradePriceLabel.y = 540;
+
+        const cost = this.tool.getNextUpradeCost();
+
+        if (this.money >= cost) {
+            this.money -= cost;
+            this.moneyLabel.text = this.money.toString();
+
+            this.tool.upgrade();
+
+            const nextUpgradeCost = this.tool.getNextUpradeCost();
+
+            if (nextUpgradeCost) {
+                this.upgradeInfo.text = this.tool.getNextUpgrade();
+                this.upgradePriceLabel.text = nextUpgradeCost.toString();
+            } else {
+                this.upgradeInfo.text = 'Fully Upgraded';
+                this.upgradePriceLabel.text = '';
+                this.upgradeButton.removeInteractive();
+            }
+        }
     }
 
     private startNextDay() {
