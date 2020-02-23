@@ -25,6 +25,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
     moneyLabel: Phaser.GameObjects.Text;
     descLabel: Phaser.GameObjects.Text;
     polaroidBg: Phaser.GameObjects.Image;
+    polaroidFragment: Phaser.GameObjects.Image;
     upgradeLabel: Phaser.GameObjects.Text;
     upgradePriceLabel: Phaser.GameObjects.Text;
     upgradeInfo: Phaser.GameObjects.Text;
@@ -91,9 +92,15 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.descLabel.setOrigin(0, 0);
         this.add(this.descLabel);
 
-        this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 320, 'polaroid_2');
+        this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 325, 'polaroid_2');
         this.polaroidBg.setOrigin(0.5, 0.45);
+        this.polaroidBg.visible = false;
         this.add(this.polaroidBg);
+
+        this.polaroidFragment = new Phaser.GameObjects.Image(scene, 550, 320, '');
+        this.polaroidFragment.setOrigin(0.5, 0.45);
+        this.polaroidFragment.visible = false;
+        this.add(this.polaroidFragment);
 
         this.upgradeLabel = new Phaser.GameObjects.Text(scene, 326, 477, 'Upgrade Pickaxe:', {
             fontSize: '14px',
@@ -240,6 +247,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
             });
             sellButton.on(Phaser.Input.Events.POINTER_UP, this.sellItem.bind(this, fragment, sellButton, priceLabel));
         });
+
+        if (this.allFragments.length) {
+            this.selectItem(this.allFragments[0], 0);
+        }
     }
 
     private pagePrev() {
@@ -260,8 +271,14 @@ export default class Inventory extends Phaser.GameObjects.Container {
         const maxAngle = 50;
         const angleSection = maxAngle / 10;
         const offset = fragment.piece % 2 === 0 ? maxAngle / 2 : 0;
-        this.polaroidBg.setAngle((fragment.piece * angleSection) - offset);
-        console.log(fragment.id, fragment.piece, i);
+        const angle = (fragment.piece * angleSection) - offset;
+
+        this.polaroidFragment.setTexture(`treasure_${fragment.id}`, fragment.piece);
+        this.polaroidFragment.setAngle(angle);
+        this.polaroidBg.setAngle(angle);
+
+        this.polaroidBg.visible = true;
+        this.polaroidFragment.visible = true;
     }
 
     private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {
