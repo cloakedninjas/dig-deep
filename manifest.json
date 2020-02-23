@@ -122,40 +122,40 @@
       "file": "treasure_end_1.png",
       "size": 58003,
       "frameConfig": {
-        "frameWidth": 392,
-        "frameHeight": 232
+        "frameWidth": 145,
+        "frameHeight": 145
       }
     },
     "treasure_end_2": {
       "file": "treasure_end_2.png",
       "size": 58003,
       "frameConfig": {
-        "frameWidth": 392,
-        "frameHeight": 232
+        "frameWidth": 145,
+        "frameHeight": 145
       }
     },
     "treasure_end_4": {
       "file": "treasure_end_4.png",
       "size": 58003,
       "frameConfig": {
-        "frameWidth": 392,
-        "frameHeight": 232
+        "frameWidth": 145,
+        "frameHeight": 145
       }
     },
     "treasure_end_5": {
       "file": "treasure_end_5.png",
       "size": 58003,
       "frameConfig": {
-        "frameWidth": 392,
-        "frameHeight": 232
+        "frameWidth": 145,
+        "frameHeight": 145
       }
     },
     "treasure_end_7": {
       "file": "treasure_end_7.png",
       "size": 58003,
       "frameConfig": {
-        "frameWidth": 392,
-        "frameHeight": 232
+        "frameWidth": 250,
+        "frameHeight": 158
       }
     },
     "dirt_1": {

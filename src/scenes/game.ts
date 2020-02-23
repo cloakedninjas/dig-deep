@@ -56,21 +56,21 @@ export class Game extends Scene {
       inv: this.sound.add('music_inv') as Phaser.Sound.WebAudioSound
     }
 
-    //this.switchMode(MODE.DIGGING);
+    this.switchMode(MODE.DIGGING);
 
-    const p = [];
-    for (let i = 0; i < 3; i++) {
+    /* const p = [];
+    for (let i = 0; i < 5; i++) {
 
       p.push(i);
     }
 
-    this.foundFragments[1] = {
+    this.foundFragments[7] = {
       found: 0,
       pieces: p,
       piecesLeft: []
     };
 
-    this.switchMode(MODE.INVENTORY);
+    this.switchMode(MODE.INVENTORY); */
   }
 
   private handleTap() {

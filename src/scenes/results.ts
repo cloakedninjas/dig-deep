@@ -5,7 +5,7 @@ import * as treasureConfig from '../config/treasure.json';
 
 export class Results extends Scene {
   foundFragments: FoundFragments[];
-  score: number;
+  score: number = 0;
 
   constructor() {
     super({
@@ -19,8 +19,11 @@ export class Results extends Scene {
 
   init(data: any) {
     this.foundFragments = data.foundFragments;
+  }
 
-    this.score = 0;
+  create() {
+    const bg = this.add.image(0, 0, 'results_bg');
+    bg.setOrigin(0, 0);
 
     this.foundFragments.forEach((fragment, itemId) => {
       const itemConfig = treasureConfig.find(tc => tc.id === itemId);
@@ -30,12 +33,36 @@ export class Results extends Scene {
       if (fragment.pieces.length === itemConfig.fragments) {
         this.score *= config.completionBonusMult;
       }
-    });
-  }
 
-  create() {
-    const bg = this.add.image(0, 0, 'results_bg');
-    bg.setOrigin(0, 0);
+      const coords = {
+        1: {
+          x: 631,
+          y: 66
+        },
+        2: {
+          x: 24,
+          y: 66
+        },
+        4: {
+          x: 631,
+          y: 295
+        },
+        5: {
+          x: 24,
+          y: 295
+        },
+        7: {
+          x: 275,
+          y: 384
+        }
+      };
+
+      fragment.pieces.forEach(piece => {
+        const portraitPiece = new Phaser.GameObjects.Sprite(this, coords[itemId].x, coords[itemId].y, `treasure_end_${itemId}`, piece);
+        portraitPiece.setOrigin(0, 0);
+        this.add.existing(portraitPiece);
+      });
+    });
 
     const style: Phaser.Types.GameObjects.Text.TextStyle = {
       fontFamily: config.fonts.cursive,
@@ -47,5 +74,13 @@ export class Results extends Scene {
 
     score.setOrigin(0.5, 0);
 
+    const rect = new Phaser.Geom.Rectangle(531, 275, 66, 70);
+
+    var graphics = this.add.graphics();
+
+    graphics.setInteractive(rect, Phaser.Geom.Rectangle.Contains);
+    graphics.on(Phaser.Input.Events.POINTER_DOWN, () => {
+      this.scene.start('MenuScene');
+    });
   }
 }
