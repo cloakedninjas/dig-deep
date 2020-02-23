@@ -56,9 +56,9 @@ export class Game extends Scene {
       inv: this.sound.add('music_inv') as Phaser.Sound.WebAudioSound
     }
 
-    // this.switchMode(MODE.DIGGING);
+    this.switchMode(MODE.DIGGING);
 
-    const p = [];
+    /* const p = [];
     for (let i = 0; i < 5; i++) {
 
       p.push(i);
@@ -70,7 +70,7 @@ export class Game extends Scene {
       piecesLeft: []
     };
 
-    this.switchMode(MODE.INVENTORY);
+    this.switchMode(MODE.INVENTORY); */
   }
 
   private handleTap() {
@@ -104,17 +104,15 @@ export class Game extends Scene {
           foo: 'bar'
         });
       } else {
-
-
         // modal end of day
         this.inventory.show();
       }
     } else {
       this.refreshTool();
-      this.money = this.inventory.money;
 
       if (this.daysLeft !== config.workDays) {
         this.dayChange();
+        this.money = this.inventory.money;
       }
     }
 
