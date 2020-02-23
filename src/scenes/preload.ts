@@ -124,6 +124,19 @@ export class Preload extends Scene {
     link.rel = 'stylesheet';
     link.href = 'https://fonts.googleapis.com/css?family=Neuton|Sedgwick+Ave&display=swap';
     head.appendChild(link);
+
+    const el = document.createElement('SPAN');
+    document.body.appendChild(el);
+    el.innerText = 'Test';
+    el.style.fontFamily = 'Neuton';
+
+    setTimeout(() => {
+      el.style.fontFamily = 'Sedgwick Ave';
+    }, 10);
+
+    setTimeout(() => {
+      el.parentNode.removeChild(el);
+    }, 20);
   }
 
   create() {

@@ -65,7 +65,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(nextButton);
 
         this.pageLabel = new Phaser.GameObjects.Text(scene, 200, 418, '', {
-            fontSize: '26px bold',
+            fontSize: '26px',
             align: 'center',
             fontFamily: config.fonts.cursive,
             color: config.fonts.colour
@@ -73,7 +73,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(this.pageLabel);
 
         this.moneyLabel = new Phaser.GameObjects.Text(scene, 260, 500, '', {
-            fontSize: '32px bold',
+            fontSize: '32px',
             align: 'right',
             fontFamily: config.fonts.cursive,
             color: config.fonts.colour
@@ -130,7 +130,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(this.upgradeButton);
 
         this.upgradePriceLabel = new Phaser.GameObjects.Text(scene, 380, 532, '', {
-            fontSize: '20px bold',
+            fontSize: '20px',
             align: 'center',
             fontFamily: config.fonts.normal,
             color: config.fonts.colour
@@ -139,7 +139,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(this.upgradePriceLabel);
 
         this.nextDayLabel = new Phaser.GameObjects.Text(scene, 657, 483, 'Start next day\n> > >', {
-            fontSize: '28px bold',
+            fontSize: '28px',
             align: 'center',
             fontFamily: config.fonts.cursive,
             color: config.fonts.colour
@@ -242,7 +242,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
             const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
             const priceLabel = new Phaser.GameObjects.Text(this.scene, x, y, itemDef.value.toString(), {
                 fontFamily: config.fonts.normal,
-                fontSize: '14px bold',
+                fontSize: '14px',
                 color: '#fff'
             });
             priceLabel.setOrigin(0.5, 0);

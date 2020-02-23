@@ -81,15 +81,6 @@ export default class DigSite extends Phaser.GameObjects.Container {
         this.add(tile);
         layer[x][y] = tile;
 
-        if (this.fragmentDistribution[depth][treasureIndex]) {
-          const text = this.fragmentDistribution[depth][treasureIndex].toString();
-          const style: Phaser.Types.GameObjects.Text.TextStyle = {
-            fontFamily: 'Arial',
-          };
-
-          this.add(new Phaser.GameObjects.Text(this.scene, tile.x, tile.y, text, style));
-        }
-
         tile.events.on(TILE_EVENTS.TAP, this.handleTileTap, this);
         tile.events.on(TILE_EVENTS.DISCOVER, this.handleDiscovery, this);
         tile.events.on(TILE_EVENTS.EXTRA_DMG, this.handleExtraDamage, this);
