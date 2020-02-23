@@ -155,10 +155,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
     show(page?: number) {
         this.currentPage = page || 0;
 
-        this.moneyLabel.text = this.money.toString();
-        this.upgradeInfo.text = this.tool.getNextUpgrade();
-        this.upgradePriceLabel.text = this.tool.getNextUpradeCost().toString();
-
+        this.updateUpgradeDetails();
         this.createFragmentListing(this.currentPage);
         this.createPage(this.currentPage);
 
@@ -326,17 +323,20 @@ export default class Inventory extends Phaser.GameObjects.Container {
             this.moneyLabel.text = this.money.toString();
 
             this.tool.upgrade();
+            this.updateUpgradeDetails();
+        }
+    }
 
-            const nextUpgradeCost = this.tool.getNextUpradeCost();
+    private updateUpgradeDetails() {
+        const nextUpgradeCost = this.tool.getNextUpradeCost();
 
-            if (nextUpgradeCost) {
-                this.upgradeInfo.text = this.tool.getNextUpgrade();
-                this.upgradePriceLabel.text = nextUpgradeCost.toString();
-            } else {
-                this.upgradeInfo.text = 'Fully Upgraded';
-                this.upgradePriceLabel.text = '';
-                this.upgradeButton.removeInteractive();
-            }
+        if (nextUpgradeCost) {
+            this.upgradeInfo.text = this.tool.getNextUpgrade();
+            this.upgradePriceLabel.text = nextUpgradeCost.toString();
+        } else {
+            this.upgradeInfo.text = 'Fully Upgraded';
+            this.upgradePriceLabel.text = '';
+            this.upgradeButton.removeInteractive();
         }
     }
 
