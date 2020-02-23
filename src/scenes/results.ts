@@ -110,7 +110,8 @@ export class Results extends Scene {
 
     graphics.setInteractive(rect, Phaser.Geom.Rectangle.Contains);
     graphics.on(Phaser.Input.Events.POINTER_DOWN, () => {
-      this.scene.start('MenuScene');
+      //this.scene.start('MenuScene');
+      document.location.reload();
     });
   }
 }

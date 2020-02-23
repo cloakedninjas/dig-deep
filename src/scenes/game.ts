@@ -25,11 +25,10 @@ export class Game extends Scene {
     super({
       key: 'GameScene',
     });
-
-    this.foundFragments = [];
   }
 
   create() {
+    this.foundFragments = [];
     this.daysLeft = config.workDays;
     this.tool = new Tool(config.tool.startingActions, config.tool.startingPower);
 
