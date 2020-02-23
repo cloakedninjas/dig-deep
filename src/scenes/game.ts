@@ -74,19 +74,19 @@ export class Game extends Scene {
         this.add.existing(this.inventory);
       }
 
-      this.inventory.show();
       this.daysLeft--;
 
       if (this.daysLeft <= 0) {
-        this.scene.start('ResultScene');
+        this.scene.start('ResultScene', {
+          foo: 'bar'
+        });
       } else {
         this.tool.refresh();
 
         // modal end of day
-        // show inventory
+        this.inventory.show();
       }
     } else {
-      // close inventory
     }
   }
 
