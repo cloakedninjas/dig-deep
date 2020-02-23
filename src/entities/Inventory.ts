@@ -258,6 +258,13 @@ export default class Inventory extends Phaser.GameObjects.Container {
                 priceLabel.y += 4;
             });
             sellButton.on(Phaser.Input.Events.POINTER_UP, this.sellItem.bind(this, fragment, sellButton, priceLabel));
+
+            // coin
+            x -= 40;
+            y -= 10;
+            const coin = new Phaser.GameObjects.Image(this.scene, x, y, 'coin');
+            coin.setOrigin(0.5, 0);
+            this.itemsContainer.add(coin);
         });
 
         if (this.allFragments.length) {
