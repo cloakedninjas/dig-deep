@@ -140,6 +140,6 @@ export class Preload extends Scene {
   }
 
   create() {
-    this.scene.start('GameScene');
+    this.scene.start('MenuScene');
   }
 }

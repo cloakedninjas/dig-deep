@@ -1,5 +1,9 @@
 {
   "image": {
+    "start_screen": {
+      "file": "start_screen.png",
+      "size": 46779
+    },
     "base": {
       "file": "base.png",
       "size": 46779
