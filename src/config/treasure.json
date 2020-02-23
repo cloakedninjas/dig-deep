@@ -32,6 +32,7 @@
     {
         "id": 7,
         "name": "Triceratops Skeleton",
+        "description": "A very old old thing",
         "fragments": 5,
         "value": 40,
         "spawnsAt": 1,

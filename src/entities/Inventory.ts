@@ -279,6 +279,9 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
         this.polaroidBg.visible = true;
         this.polaroidFragment.visible = true;
+
+        const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
+        this.descLabel.text = itemDef.description;
     }
 
     private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {
