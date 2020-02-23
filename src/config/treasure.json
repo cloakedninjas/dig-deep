@@ -76,7 +76,7 @@
     {
         "id": 8,
         "name": "Wishbone",
-        "fragments": 1,
+        "fragments": 2,
         "value": 2,
         "spawnsAt": 0,
         "trash": true,
@@ -85,7 +85,7 @@
     {
         "id": 9,
         "name": "Movie Prop",
-        "fragments": 5,
+        "fragments": 3,
         "value": 25,
         "spawnsAt": 0,
         "trash": true,

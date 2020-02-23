@@ -125,8 +125,6 @@ export class Game extends Scene {
   }
 
   private switchMusic() {
-    return;
-
     if (this.currentMusic) {
       /* this.tweens.add({
         targets: this.currentMusic,

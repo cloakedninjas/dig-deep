@@ -73,8 +73,36 @@ export class Results extends Scene {
       color: config.fonts.colour
     };
     const score = this.add.text(400, 135, this.score.toString(), style);
-
     score.setOrigin(0.5, 0);
+
+    let titleValue;
+    let descValue;
+
+    if (this.score > 750) {
+      titleValue = 'Indiana Bones';
+      descValue = 'Bone diggity! You\'ve mastered the art.';
+    } else if (this.score > 500) {
+      titleValue = 'Bonehunter';
+      descValue = 'A bonafide archaeologist, no bones about it!';
+    } else if (this.score > 450) {
+      titleValue = 'Archaeologist';
+      descValue = 'You\'ve got a bone to pick... with the ground!';
+    } else if (this.score > 300) {
+      titleValue = 'Archaeology Student';
+      descValue = 'You\'ve really been boning up on the subject!';
+    } else {
+      titleValue = 'Architect';
+      descValue = 'Are you sure you came to the right place ?'
+    }
+
+    const title = this.add.text(400, 180, titleValue, style);
+    title.setOrigin(0.5, 0);
+
+    style.wordWrap = {
+      width: 280
+    }
+    const desc = this.add.text(400, 265, descValue, style);
+    desc.setOrigin(0.5, 0.5);
 
     const rect = new Phaser.Geom.Rectangle(531, 275, 66, 70);
 

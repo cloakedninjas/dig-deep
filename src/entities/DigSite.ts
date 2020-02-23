@@ -147,8 +147,6 @@ export default class DigSite extends Phaser.GameObjects.Container {
       if (nextTile) {
         nextTile.receiveDamage(damage);
         break;
-      } else {
-        this.cursor.visible = true;
       }
     }
   }
