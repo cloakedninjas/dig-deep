@@ -1,13 +1,5 @@
 {
   "image": {
-    "dirt_1": {
-      "file": "dirt_1.png",
-      "size": 85726
-    },
-    "dirt_2": {
-      "file": "dirt_2.png",
-      "size": 85726
-    },
     "base": {
       "file": "base.png",
       "size": 85726
@@ -48,6 +40,22 @@
       "frameConfig": {
         "frameWidth": 111,
         "frameHeight": 37
+      }
+    },
+    "dirt_1": {
+      "file": "dirt_1.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 73,
+        "frameHeight": 73
+      }
+    },
+    "dirt_2": {
+      "file": "dirt_2.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 73,
+        "frameHeight": 73
       }
     }
   },

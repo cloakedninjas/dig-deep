@@ -1,5 +1,7 @@
 import { Game, MODE } from '../scenes/game';
 
+const TILE_LAST_FRAME: number = 5;
+
 export default class Tile extends Phaser.GameObjects.Sprite {
     scene: Game;
     grid: {
@@ -22,13 +24,7 @@ export default class Tile extends Phaser.GameObjects.Sprite {
         this.health = health;
         this.treasure = treasure;
 
-        if (this.treasure) {
-            this.setTint(111111);
-        }
-
         this.setOrigin(0, 0);
-
-        // const textureFile = `dirt_${z}_${health}`;
 
         const textureFile = 'dirt_' + (z + 1);
         this.setTexture(textureFile);
@@ -57,6 +53,14 @@ export default class Tile extends Phaser.GameObjects.Sprite {
             }
 
             this.destroy();
+        } else {
+            // S 1 2 3 4 5 T
+            let frameIndex = TILE_LAST_FRAME + 1 - this.health;
+
+            if (this.treasure && frameIndex === TILE_LAST_FRAME) {
+                frameIndex++;
+            }
+            this.setFrame(frameIndex);
         }
     }
 

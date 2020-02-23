@@ -3,11 +3,11 @@
     "layerHeight": 6,
     "maxLayers": 2,
     "healthPerLayer": [
-        1,
-        1,
         2,
         2,
-        3
+        3,
+        3,
+        4
     ],
     "workDays": 2,
     "tool": {

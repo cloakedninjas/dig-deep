@@ -37,9 +37,9 @@ export class Game extends Scene {
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
     this.digSite.events.on(SITE_EVENTS.TAP, this.handleTap, this);
 
-    //this.switchMode(MODE.DIGGING);
+    this.switchMode(MODE.DIGGING);
 
-    const p = [];
+    /* const p = [];
     for (let i = 0; i < 13; i++) {
 
       p.push(i);
@@ -51,7 +51,7 @@ export class Game extends Scene {
       piecesLeft: []
     };
 
-    this.switchMode(MODE.INVENTORY);
+    this.switchMode(MODE.INVENTORY); */
   }
 
   private handleTap() {
