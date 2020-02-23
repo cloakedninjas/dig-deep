@@ -1,6 +1,7 @@
 import { FoundFragments } from '../scenes/game';
 import Button from './Button';
 import { Scene } from 'phaser';
+import * as config from '../config/config.json';
 
 const TWEEN_DURATION: number = 1000;
 
@@ -20,6 +21,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
     moneyLabel: Phaser.GameObjects.Text;
     descLabel: Phaser.GameObjects.Text;
     polaroidBg: Phaser.GameObjects.Image;
+    upgradeLabel: Phaser.GameObjects.Text;
+    upgradePriceLabel: Phaser.GameObjects.Text;
+    upgradeInfo: Phaser.GameObjects.Text;
+    upgradeButton: Button;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -82,6 +87,41 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 320, 'polaroid');
         this.polaroidBg.setOrigin(0.5, 0.45);
         this.add(this.polaroidBg);
+
+        this.upgradeLabel = new Phaser.GameObjects.Text(scene, 326, 477, 'Upgrade Pickaxe:', {
+            fontSize: '14px',
+            align: 'right',
+            fontFamily: config.fonts.cursive,
+            color: 'red'
+        });
+        this.upgradeLabel.setOrigin(0, 0);
+        this.add(this.upgradeLabel);
+
+        this.upgradeInfo = new Phaser.GameObjects.Text(scene, 375, 500, '', {
+            fontSize: '14px',
+            align: 'center',
+            fontFamily: config.fonts.cursive,
+            color: this.fontColor
+        });
+        this.upgradeInfo.setOrigin(0.5, 0);
+        this.add(this.upgradeInfo);
+
+        this.upgradeButton = new Button(scene, 320, 528, 'upgrade_button', 1, 2);
+        this.upgradeButton.setOrigin(0, 0);
+        this.upgradeButton.on(Phaser.Input.Events.POINTER_DOWN, this.buyUpgrade, this);
+        this.upgradeButton.on(Phaser.Input.Events.POINTER_UP, () => {
+            this.upgradePriceLabel.y = 532;
+        });
+        this.add(this.upgradeButton);
+
+        this.upgradePriceLabel = new Phaser.GameObjects.Text(scene, 380, 532, '', {
+            fontSize: '20px bold',
+            align: 'center',
+            fontFamily: config.fonts.normal,
+            color: this.fontColor
+        });
+        this.upgradePriceLabel.setOrigin(0.5, 0);
+        this.add(this.upgradePriceLabel);
     }
 
     show() {
@@ -112,6 +152,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
         this.totalPages = Math.ceil(this.allFragments.length / this.pageSize);
         this.moneyLabel.text = this.money.toString();
+        this.upgradeInfo.text = 'TOdo...';
+        this.upgradePriceLabel.text = '123';
 
         this.createPage(0);
 
@@ -178,5 +220,9 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
     private sellItem(item: any) {
         console.log(item)
+    }
+
+    private buyUpgrade() {
+        this.upgradePriceLabel.y = 540;
     }
 }

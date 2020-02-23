@@ -41,6 +41,14 @@
         "frameWidth": 43,
         "frameHeight": 24
       }
+    },
+    "upgrade_button": {
+      "file": "button_pickaxe.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 111,
+        "frameHeight": 37
+      }
     }
   },
   "audio": {},

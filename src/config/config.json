@@ -13,5 +13,9 @@
     "tool": {
         "startingPower": 1,
         "startingActions": 6
+    },
+    "fonts": {
+        "cursive": "Sedgwick Ave",
+        "normal": "Neuton"
     }
 }
