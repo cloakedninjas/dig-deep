@@ -66,6 +66,8 @@ export class Game extends Scene {
     this.mode = mode;
 
     if (this.mode === MODE.INVENTORY) {
+      this.daysLeft--;
+
       if (!this.inventory) {
         this.inventory = new Inventory(this);
         this.inventory.discoveries = this.foundFragments;
@@ -74,7 +76,7 @@ export class Game extends Scene {
         this.add.existing(this.inventory);
       }
 
-      this.daysLeft--;
+      this.children.bringToTop(this.inventory);
 
       if (this.daysLeft <= 0) {
         this.scene.start('ResultScene', {
@@ -87,6 +89,9 @@ export class Game extends Scene {
         this.inventory.show();
       }
     } else {
+      if (this.daysLeft !== config.workDays) {
+        this.dayChange();
+      }
     }
   }
 
@@ -117,6 +122,12 @@ export class Game extends Scene {
     this.foundFragments[treasure].pieces.push(foundPiece);
 
     console.log(this.foundFragments);
+  }
+
+  private dayChange() {
+    const x = 598 + ((config.workDays - this.daysLeft) * 22);
+    const cross = new Phaser.GameObjects.Image(this, x, 220, 'cross');
+    this.add.existing(cross);
   }
 }
 

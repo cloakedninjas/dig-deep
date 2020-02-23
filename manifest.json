@@ -15,6 +15,10 @@
     "polaroid": {
       "file": "polaroid.png",
       "size": 85726
+    },
+    "cross": {
+      "file": "x.png",
+      "size": 85726
     }
   },
   "spritesheet": {
