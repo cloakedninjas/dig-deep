@@ -5,13 +5,13 @@ import { Results } from './scenes/results';
 import { Menu } from './scenes/menu';
 
 const config: Phaser.Types.Core.GameConfig = {
-  title: 'Demo Game',
+  title: 'DIG DEEP',
 
   scene: [Preload, Menu, GameScene, Results],
   backgroundColor: '#333',
   resolution: window.devicePixelRatio,
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: 'game-container',
     width: 800,
