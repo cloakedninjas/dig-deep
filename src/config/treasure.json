@@ -6,27 +6,41 @@
         "value": 20,
         "spawnsAt": 0,
         "bonus": 120,
-        "description": "I am overall desc",
+        "description": "Sadly no wine in this one.",
         "pieceDescriptions": [
-            "Piece 1",
-            "Piece 2"
+            "I'm not sure how to handle this.",
+            "Piece 2",
+            "Piece 3"
         ]
     },
     {
         "id": 2,
         "name": "Vase",
-        "fragments": 6,
+        "fragments": 4,
         "value": 20,
         "spawnsAt": 0,
-        "bonus": 120
+        "bonus": 120,
+        "description": "I am overall desc",
+        "pieceDescriptions": [
+            "I feel like something is staring at me.",
+            "Piece 2",
+            "Piece 3",
+            "Piece 4"
+        ]
     },
     {
         "id": 4,
         "name": "Statue",
-        "fragments": 4,
+        "fragments": 3,
         "value": 30,
         "spawnsAt": 2,
-        "bonus": 120
+        "bonus": 120,
+        "description": "This one has arms.",
+        "pieceDescriptions": [
+            "Piece 1",
+            "Is it a chest or a rear?",
+            "I guess I hit rock bottom."
+        ]
     },
     {
         "id": 5,
@@ -34,7 +48,14 @@
         "fragments": 4,
         "value": 30,
         "spawnsAt": 2,
-        "bonus": 120
+        "bonus": 120,
+        "description": "Tablets have gotten a lot slimmer over the years.",
+        "pieceDescriptions": [
+            "Piece 1",
+            "Piece 2",
+            "Piece 3",
+            "Piece 4"
+        ]
     },
     {
         "id": 7,
@@ -42,7 +63,15 @@
         "fragments": 5,
         "value": 40,
         "spawnsAt": 3,
-        "bonus": 200
+        "bonus": 200,
+        "description": "It's in my Triceratop 3 favorite dinosaurs!",
+        "pieceDescriptions": [
+            "Bone jour, Mr. Dinosaur!",
+            "This tickles my funny bone!",
+            "Bone apple tea!",
+            "This should help me get a leg up in the industry!",
+            "Hindsight is 20-20."
+        ]
     },
     {
         "id": 8,
@@ -50,7 +79,8 @@
         "fragments": 1,
         "value": 2,
         "spawnsAt": 0,
-        "trash": true
+        "trash": true,
+        "description": "I wish this were a better bone."
     },
     {
         "id": 9,
@@ -58,71 +88,17 @@
         "fragments": 1,
         "value": 25,
         "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 10,
-        "name": "Post Card",
-        "fragments": 1,
-        "value": 2,
-        "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 11,
-        "name": "Dirty Magazine",
-        "fragments": 1,
-        "value": 15,
-        "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 12,
-        "name": "VHS",
-        "fragments": 1,
-        "value": 2,
-        "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 13,
-        "name": "Lost ID Badge",
-        "fragments": 1,
-        "value": 2,
-        "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 14,
-        "name": "Bag of Weed",
-        "fragments": 1,
-        "value": 20,
-        "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 15,
-        "name": "",
-        "fragments": 1,
-        "value": 2,
-        "spawnsAt": 0,
-        "trash": true
+        "trash": true,
+        "description": "This belongs in a museum... in Hollywood."
     },
     {
         "id": 16,
-        "name": "Lost Sock",
+        "name": "Long Lost Sock",
         "fragments": 1,
         "value": 2,
         "spawnsAt": 0,
-        "trash": true
-    },
-    {
-        "id": 17,
-        "name": "Genie Lamp",
-        "fragments": 1,
-        "value": 2,
-        "spawnsAt": 0,
-        "trash": true
+        "trash": true,
+        "description": "Now if I could just find the other one..."
     },
     {
         "id": 18,
@@ -130,6 +106,7 @@
         "fragments": 1,
         "value": 2,
         "spawnsAt": 0,
-        "trash": true
+        "trash": true,
+        "description": "Oh! They 3D printed the save button!"
     }
 ]

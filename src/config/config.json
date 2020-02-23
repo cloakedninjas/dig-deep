@@ -1,7 +1,7 @@
 {
     "layerWidth": 6,
     "layerHeight": 6,
-    "maxLayers": 2,
+    "maxLayers": 4,
     "healthPerLayer": [
         2,
         2,
