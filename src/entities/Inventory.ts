@@ -1,13 +1,16 @@
-import { FoundFragments } from '../scenes/game';
+import { FoundFragments, MODE } from '../scenes/game';
 import Button from './Button';
 import { Scene } from 'phaser';
+import { Game } from '../scenes/game';
 import * as config from '../config/config.json';
 
 const TWEEN_DURATION: number = 1000;
 
 export default class Inventory extends Phaser.GameObjects.Container {
+    scene: Game;
     discoveries: FoundFragments[];
     allFragments: any[];
+    bg: Phaser.GameObjects.Image;
     itemsContainer: Phaser.GameObjects.Container;
     pageLabel: Phaser.GameObjects.Text;
     totalPages: number;
@@ -25,19 +28,22 @@ export default class Inventory extends Phaser.GameObjects.Container {
     upgradePriceLabel: Phaser.GameObjects.Text;
     upgradeInfo: Phaser.GameObjects.Text;
     upgradeButton: Button;
+    nextDayLabel: Phaser.GameObjects.Text;
+    events: Phaser.Events.EventEmitter;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
 
         this.pageSize = this.rows * this.cols;
+        this.events = new Phaser.Events.EventEmitter();
 
-        const bg = new Phaser.GameObjects.Image(scene, 0, 0, 'bag');
-        bg.setOrigin(0, 0);
+        this.bg = new Phaser.GameObjects.Image(scene, 0, 0, 'bag');
+        this.bg.setOrigin(0, 0);
 
         // start offscreen
-        this.x = -bg.width;
+        this.x = -this.bg.width;
 
-        this.add(bg);
+        this.add(this.bg);
 
         this.itemsContainer = new Phaser.GameObjects.Container(scene, 0, 0);
         this.add(this.itemsContainer);
@@ -122,6 +128,20 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
         this.upgradePriceLabel.setOrigin(0.5, 0);
         this.add(this.upgradePriceLabel);
+
+        this.nextDayLabel = new Phaser.GameObjects.Text(scene, 657, 483, 'Start next day\n> > >', {
+            fontSize: '28px bold',
+            align: 'center',
+            fontFamily: config.fonts.cursive,
+            color: this.fontColor
+        });
+        this.nextDayLabel.setOrigin(0.5, 0);
+        this.nextDayLabel.setInteractive({
+            useHandCursor: true
+        });
+        this.nextDayLabel.on(Phaser.Input.Events.POINTER_UP, this.startNextDay, this);
+        this.nextDayLabel.angle = 355;
+        this.add(this.nextDayLabel);
     }
 
     show() {
@@ -225,4 +245,24 @@ export default class Inventory extends Phaser.GameObjects.Container {
     private buyUpgrade() {
         this.upgradePriceLabel.y = 540;
     }
+
+    private startNextDay() {
+        if (this.scene.mode === MODE.INVENTORY) {
+            this.scene.tweens.add({
+                targets: [this],
+                props: {
+                    x: -this.bg.width
+                },
+                ease: Phaser.Math.Easing.Circular.In,
+                duration: TWEEN_DURATION,
+                onComplete: () => {
+                    this.events.emit(INV_EVENTS.NEXT_DAY);
+                }
+            });
+        }
+    }
 }
+
+export enum INV_EVENTS {
+    NEXT_DAY = 'day'
+};

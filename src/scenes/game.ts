@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import DigSite, { SITE_EVENTS } from '../entities/DigSite';
-import Inventory from '../entities/Inventory';
+import Inventory, { INV_EVENTS } from '../entities/Inventory';
 import Tool from '../entities/Tool';
 import { shuffle } from '../lib/helpers';
 import * as config from '../config/config.json';
@@ -70,6 +70,7 @@ export class Game extends Scene {
         this.inventory = new Inventory(this);
         this.inventory.discoveries = this.foundFragments;
         this.inventory.money = this.money;
+        this.inventory.events.on(INV_EVENTS.NEXT_DAY, this.switchMode.bind(this, MODE.DIGGING));
         this.add.existing(this.inventory);
       }
 
