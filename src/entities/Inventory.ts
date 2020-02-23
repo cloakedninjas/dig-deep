@@ -3,13 +3,14 @@ import Button from './Button';
 import { Scene } from 'phaser';
 import { Game } from '../scenes/game';
 import * as config from '../config/config.json';
+import * as treasureConfig from '../config/treasure.json';
 
 const TWEEN_DURATION: number = 1000;
 
 export default class Inventory extends Phaser.GameObjects.Container {
     scene: Game;
     discoveries: FoundFragments[];
-    allFragments: any[];
+    allFragments: FragmentDef[];
     bg: Phaser.GameObjects.Image;
     itemsContainer: Phaser.GameObjects.Container;
     pageLabel: Phaser.GameObjects.Text;
@@ -144,8 +145,27 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(this.nextDayLabel);
     }
 
-    show() {
-        this.currentPage = 0;
+    show(page?: number) {
+        this.currentPage = page || 0;
+
+        this.moneyLabel.text = this.money.toString();
+        this.upgradeInfo.text = 'TOdo...';
+        this.upgradePriceLabel.text = '123';
+
+        this.createFragmentListing(this.currentPage);
+        this.createPage(this.currentPage);
+
+        this.scene.tweens.add({
+            targets: [this],
+            props: {
+                x: 0
+            },
+            ease: Phaser.Math.Easing.Circular.Out,
+            duration: TWEEN_DURATION
+        });
+    }
+
+    createFragmentListing(page: number) {
         this.allFragments = [];
 
         let i = 0;
@@ -171,20 +191,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
 
         this.totalPages = Math.ceil(this.allFragments.length / this.pageSize);
-        this.moneyLabel.text = this.money.toString();
-        this.upgradeInfo.text = 'TOdo...';
-        this.upgradePriceLabel.text = '123';
-
-        this.createPage(0);
-
-        this.scene.tweens.add({
-            targets: [this],
-            props: {
-                x: 0
-            },
-            ease: Phaser.Math.Easing.Circular.Out,
-            duration: TWEEN_DURATION
-        });
     }
 
     createPage(page: number) {
@@ -210,8 +216,24 @@ export default class Inventory extends Phaser.GameObjects.Container {
             let y = fragment.sprite.y + 86;
             const sellButton = new Button(this.scene, x, y, 'sell_button', 1, 2);
             sellButton.setOrigin(0, 0);
-            sellButton.on(Phaser.Input.Events.POINTER_DOWN, this.sellItem.bind(this, fragment));
+
             this.itemsContainer.add(sellButton);
+
+            // price label
+            x += 20;
+            y += 3;
+            const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
+            const priceLabel = new Phaser.GameObjects.Text(this.scene, x, y, itemDef.value.toString(), {
+                fontFamily: config.fonts.normal,
+                fontSize: '14px bold',
+                color: '#fff'
+            });
+            priceLabel.setOrigin(0.5, 0);
+            this.itemsContainer.add(priceLabel);
+            sellButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+                priceLabel.y += 4;
+            });
+            sellButton.on(Phaser.Input.Events.POINTER_UP, this.sellItem.bind(this, fragment, sellButton, priceLabel));
         });
     }
 
@@ -219,7 +241,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
         if (this.currentPage > 0) {
             this.currentPage--;
             this.createPage(this.currentPage);
-
         }
     }
 
@@ -238,8 +259,36 @@ export default class Inventory extends Phaser.GameObjects.Container {
         console.log(itemId, piece, i);
     }
 
-    private sellItem(item: any) {
+    private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {
         console.log(item)
+        priceLabel.y -= 4;
+
+        const itemDef = treasureConfig.find(tc => tc.id === item.id);
+
+        this.money += itemDef.value;
+
+        // remove this fragment from all fragments
+        let index = this.allFragments.indexOf(item);
+        this.allFragments.splice(index, 1);
+
+        // update discoveries
+        index = this.discoveries[item.id].pieces.indexOf(item.piece);
+        this.discoveries[item.id].pieces.splice(index, 1);
+
+        item.sprite.destroy();
+        priceLabel.destroy();
+        priceButton.destroy();
+
+        const newTotalPages = Math.ceil(this.allFragments.length / this.pageSize);
+        if (newTotalPages !== this.totalPages) {
+            if (this.currentPage === newTotalPages) {
+                this.currentPage--;
+            }
+        }
+
+        this.createFragmentListing(this.currentPage);
+        this.createPage(this.currentPage);
+        this.moneyLabel.text = this.money.toString();
     }
 
     private buyUpgrade() {
@@ -262,6 +311,12 @@ export default class Inventory extends Phaser.GameObjects.Container {
         }
     }
 }
+
+interface FragmentDef {
+    id: number,
+    piece: number,
+    sprite: Phaser.GameObjects.Sprite
+};
 
 export enum INV_EVENTS {
     NEXT_DAY = 'day'
