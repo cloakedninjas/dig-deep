@@ -72,7 +72,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
         this.add(this.pageLabel);
 
-        this.moneyLabel = new Phaser.GameObjects.Text(scene, 260, 500, '', {
+        this.moneyLabel = new Phaser.GameObjects.Text(scene, 270, 490, '0000', {
             fontSize: '32px',
             align: 'right',
             fontFamily: config.fonts.cursive,
@@ -130,7 +130,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.add(this.upgradeButton);
 
         this.upgradePriceLabel = new Phaser.GameObjects.Text(scene, 380, 532, '', {
-            fontSize: '20px',
+            fontSize: '24px',
             align: 'center',
             fontFamily: config.fonts.normal,
             color: config.fonts.colour
@@ -138,8 +138,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.upgradePriceLabel.setOrigin(0.5, 0);
         this.add(this.upgradePriceLabel);
 
-        this.nextDayLabel = new Phaser.GameObjects.Text(scene, 657, 483, 'Start next day\n> > >', {
-            fontSize: '28px',
+        this.nextDayLabel = new Phaser.GameObjects.Text(scene, 657, 483, 'Start next day', {
+            fontSize: '24px',
             align: 'center',
             fontFamily: config.fonts.cursive,
             color: config.fonts.colour
@@ -199,6 +199,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
 
         this.totalPages = Math.ceil(this.allFragments.length / this.pageSize);
+
+        if (this.totalPages === 0) {
+            this.totalPages = 1;
+        }
     }
 
     createPage(page: number) {
@@ -299,7 +303,6 @@ export default class Inventory extends Phaser.GameObjects.Container {
     }
 
     private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {
-        console.log(item)
         priceLabel.y -= 4;
 
         const itemDef = treasureConfig.find(tc => tc.id === item.id);
@@ -319,9 +322,14 @@ export default class Inventory extends Phaser.GameObjects.Container {
         priceButton.destroy();
 
         const newTotalPages = Math.ceil(this.allFragments.length / this.pageSize);
+
         if (newTotalPages !== this.totalPages) {
             if (this.currentPage === newTotalPages) {
                 this.currentPage--;
+            }
+
+            if (this.currentPage < 0) {
+                this.currentPage = 0;
             }
         }
 
