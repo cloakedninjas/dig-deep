@@ -28,5 +28,12 @@
         "spawnsAt": 0,
         "value": 2,
         "trash": true
+    },
+    {
+        "id": 7,
+        "name": "Triceratops Skeleton",
+        "fragments": 5,
+        "value": 40,
+        "spawnsAt": 1
     }
 ]

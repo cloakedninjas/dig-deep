@@ -91,7 +91,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.descLabel.setOrigin(0, 0);
         this.add(this.descLabel);
 
-        this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 320, 'polaroid');
+        this.polaroidBg = new Phaser.GameObjects.Image(scene, 550, 320, 'polaroid_2');
         this.polaroidBg.setOrigin(0.5, 0.45);
         this.add(this.polaroidBg);
 
@@ -172,12 +172,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
         this.discoveries.forEach((discovery, itemId) => {
             discovery.pieces.forEach(piece => {
-                //  `fragment_${tc.id}_${foundPiece}`
-                const spriteName = 'item_large';
-                const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, spriteName);
+                const fragmentSprite = new Phaser.GameObjects.Sprite(this.scene, 0, 0, `treasure_${itemId}`, piece);
                 fragmentSprite.setOrigin(0, 0);
-                fragmentSprite.setInteractive();
-                fragmentSprite.on(Phaser.Input.Events.POINTER_DOWN, this.selectItem.bind(this, itemId, piece, i));
 
                 this.allFragments.push({
                     id: itemId,
@@ -206,14 +202,23 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.totalPages;
 
         this.allFragments.slice(startI, endI).forEach((fragment, i) => {
+            let x = (spriteW * (i % this.cols)) + startX;
+            let y = (spriteH * Math.floor(i / this.rows)) + startY;
+
+            const fragmentBg = new Phaser.GameObjects.Sprite(this.scene, x, y, 'polaroid_1', fragment.piece);
+            fragmentBg.setOrigin(0, 0);
+            this.itemsContainer.add(fragmentBg);
+
+            fragmentBg.setInteractive();
+            fragmentBg.on(Phaser.Input.Events.POINTER_DOWN, this.selectItem.bind(this, fragment, i));
+
             this.itemsContainer.add(fragment.sprite);
             fragment.sprite.scale = 0.6;
-            fragment.sprite.x = (spriteW * (i % this.cols)) + startX;
-            fragment.sprite.y = (spriteH * Math.floor(i / this.rows)) + startY;
-            fragment.sprite.tint = 2000;
+            fragment.sprite.x = x;
+            fragment.sprite.y = y;
 
-            let x = fragment.sprite.x + 30;
-            let y = fragment.sprite.y + 86;
+            x += 30;
+            y += 86;
             const sellButton = new Button(this.scene, x, y, 'sell_button', 1, 2);
             sellButton.setOrigin(0, 0);
 
@@ -251,12 +256,12 @@ export default class Inventory extends Phaser.GameObjects.Container {
         }
     }
 
-    private selectItem(itemId: number, piece: number, i: number) {
+    private selectItem(fragment: FragmentDef, i: number) {
         const maxAngle = 50;
         const angleSection = maxAngle / 10;
-        const offset = piece % 2 === 0 ? maxAngle / 2 : 0;
-        this.polaroidBg.setAngle((piece * angleSection) - offset);
-        console.log(itemId, piece, i);
+        const offset = fragment.piece % 2 === 0 ? maxAngle / 2 : 0;
+        this.polaroidBg.setAngle((fragment.piece * angleSection) - offset);
+        console.log(fragment.id, fragment.piece, i);
     }
 
     private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {

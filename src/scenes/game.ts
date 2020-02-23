@@ -46,21 +46,21 @@ export class Game extends Scene {
     this.actionsLabel.setOrigin(0.5, 0);
     this.add.existing(this.actionsLabel);
 
-    this.switchMode(MODE.DIGGING);
+    // this.switchMode(MODE.DIGGING);
 
-    /* const p = [];
-    for (let i = 0; i < 13; i++) {
+    const p = [];
+    for (let i = 0; i < 5; i++) {
 
       p.push(i);
     }
 
-    this.foundFragments[1] = {
+    this.foundFragments[7] = {
       found: 0,
       pieces: p,
       piecesLeft: []
     };
 
-    this.switchMode(MODE.INVENTORY); */
+    this.switchMode(MODE.INVENTORY);
   }
 
   private handleTap() {

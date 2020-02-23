@@ -12,7 +12,7 @@
     "workDays": 7,
     "tool": {
         "startingPower": 1,
-        "startingActions": 2
+        "startingActions": 20
     },
     "fonts": {
         "cursive": "Sedgwick Ave",

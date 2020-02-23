@@ -12,8 +12,12 @@
       "file": "item_large.png",
       "size": 85726
     },
-    "polaroid": {
-      "file": "polaroid.png",
+    "polaroid_1": {
+      "file": "polaroid_1.png",
+      "size": 85726
+    },
+    "polaroid_2": {
+      "file": "polaroid_2.png",
       "size": 85726
     },
     "cross": {
@@ -44,6 +48,22 @@
       "frameConfig": {
         "frameWidth": 111,
         "frameHeight": 37
+      }
+    },
+    "treasure_7": {
+      "file": "treasure_7.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 138,
+        "frameHeight": 138
+      }
+    },
+    "treasure_big_7": {
+      "file": "treasure_big_7.png",
+      "size": 85726,
+      "frameConfig": {
+        "frameWidth": 392,
+        "frameHeight": 232
       }
     },
     "dirt_1": {
