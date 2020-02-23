@@ -42,6 +42,7 @@ export class Game extends Scene {
 
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
     this.digSite.events.on(SITE_EVENTS.TAP, this.handleTap, this);
+    this.digSite.events.on(SITE_EVENTS.EMPTIED, this.handleEmptied, this);
 
     this.actionsLabel = new Phaser.GameObjects.Text(this, 694, 420, '', {
       fontFamily: config.fonts.cursive,
@@ -80,6 +81,10 @@ export class Game extends Scene {
     if (this.tool.actionsLeft <= 0) {
       this.switchMode(MODE.INVENTORY);
     }
+  }
+
+  private handleEmptied() {
+    this.scene.start('ResultsScene');
   }
 
   private switchMode(mode: MODE) {

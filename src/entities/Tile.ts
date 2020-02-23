@@ -97,19 +97,18 @@ export default class Tile extends Phaser.GameObjects.Sprite {
         if (this.scene.mode !== MODE.DIGGING) {
             return;
         }
-        this.setTint(0x44ff44);
+        this.events.emit(TILE_EVENTS.HOVER, this);
     }
 
     private handleOut() {
-        if (this.scene.mode !== MODE.DIGGING) {
-            return;
-        }
-        this.clearTint();
+        this.events.emit(TILE_EVENTS.HOVER_OUT, this);
     }
 }
 
 export enum TILE_EVENTS {
     TAP = 'tap',
     DISCOVER = 'discover',
-    EXTRA_DMG = 'extra_dmg'
+    EXTRA_DMG = 'extra_dmg',
+    HOVER = 'hover',
+    HOVER_OUT = 'out'
 };

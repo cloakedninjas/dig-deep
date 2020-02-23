@@ -8,6 +8,8 @@ import Tool from './Tool';
 export default class DigSite extends Phaser.GameObjects.Container {
   scene: Game;
   layers: Tile[][][];
+  cursor: Phaser.GameObjects.Image;
+  tilesDestroyed: number;
   tool: Tool;
   fragmentDistribution: number[][];
   events: Phaser.Events.EventEmitter;
@@ -21,6 +23,8 @@ export default class DigSite extends Phaser.GameObjects.Container {
     this.fragmentDistribution = new Array(config.maxLayers);
     this.tool = tool;
     this.events = new Phaser.Events.EventEmitter();
+    this.cursor = new Phaser.GameObjects.Image(scene, 0, 0, 'crosshair');
+    this.cursor.setOrigin(0, 0);
 
     treasureConfig.forEach((treasure) => {
       const pieces = [];
@@ -62,6 +66,8 @@ export default class DigSite extends Phaser.GameObjects.Container {
         'trash_2': this.scene.sound.add('trash_2')
       };
     }
+
+    this.add(this.cursor);
   }
 
   private generateLayer(depth: number) {
@@ -79,6 +85,9 @@ export default class DigSite extends Phaser.GameObjects.Container {
         this.add(tile);
         layer[x][y] = tile;
 
+        tile.on('destroy', this.handleTileDestroy, this);
+        tile.events.on(TILE_EVENTS.HOVER, this.handleTileHover, this);
+        tile.events.on(TILE_EVENTS.HOVER_OUT, this.handleTileOut, this);
         tile.events.on(TILE_EVENTS.TAP, this.handleTileTap, this);
         tile.events.on(TILE_EVENTS.DISCOVER, this.handleDiscovery, this);
         tile.events.on(TILE_EVENTS.EXTRA_DMG, this.handleExtraDamage, this);
@@ -95,6 +104,30 @@ export default class DigSite extends Phaser.GameObjects.Container {
 
     tile.receiveDamage(this.tool.power);
     this.events.emit(SITE_EVENTS.TAP);
+  }
+
+  private handleTileHover(tile: Tile) {
+    if (this.scene.mode !== MODE.DIGGING) {
+      return;
+    }
+
+    this.cursor.visible = true;
+    this.cursor.x = tile.x + 8;
+    this.cursor.y = tile.y + 8;
+  }
+
+  private handleTileOut() {
+    this.cursor.visible = false;
+  }
+
+  private handleTileDestroy(tile: Tile) {
+    this.tilesDestroyed++;
+
+    if (this.tilesDestroyed >= config.maxLayers * config.layerWidth * config.layerHeight) {
+      this.events.emit(SITE_EVENTS.EMPTIED);
+    }
+
+    this.layers[tile.grid.z][tile.grid.x][tile.grid.y] = null;
   }
 
   private handleDiscovery(treasure: any) {
@@ -114,6 +147,8 @@ export default class DigSite extends Phaser.GameObjects.Container {
       if (nextTile) {
         nextTile.receiveDamage(damage);
         break;
+      } else {
+        this.cursor.visible = true;
       }
     }
   }
@@ -121,5 +156,6 @@ export default class DigSite extends Phaser.GameObjects.Container {
 
 export enum SITE_EVENTS {
   DISCOVER = 'discover',
-  TAP = 'tap'
+  TAP = 'tap',
+  EMPTIED = 'empty'
 };

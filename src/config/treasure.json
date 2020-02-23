@@ -92,6 +92,15 @@
         "description": "This belongs in a museum... in Hollywood."
     },
     {
+        "id": 10,
+        "name": "Archaeology Sticker",
+        "fragments": 3,
+        "value": 5,
+        "spawnsAt": 0,
+        "trash": true,
+        "description": "Finally, something to stick on my laptop!"
+    },
+    {
         "id": 16,
         "name": "Long Lost Sock",
         "fragments": 5,
