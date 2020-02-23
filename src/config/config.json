@@ -9,7 +9,7 @@
         3,
         4
     ],
-    "workDays": 7,
+    "workDays": 1,
     "tool": {
         "startingPower": 1,
         "startingActions": 3,
@@ -48,5 +48,6 @@
         "cursive": "Sedgwick Ave",
         "normal": "Neuton",
         "colour": "#000"
-    }
+    },
+    "completionBonusMult": 1.5
 }

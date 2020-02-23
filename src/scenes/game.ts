@@ -56,21 +56,21 @@ export class Game extends Scene {
       inv: this.sound.add('music_inv') as Phaser.Sound.WebAudioSound
     }
 
-    this.switchMode(MODE.DIGGING);
+    //this.switchMode(MODE.DIGGING);
 
-    /* const p = [];
-    for (let i = 0; i < 5; i++) {
+    const p = [];
+    for (let i = 0; i < 3; i++) {
 
       p.push(i);
     }
 
-    this.foundFragments[7] = {
+    this.foundFragments[1] = {
       found: 0,
       pieces: p,
       piecesLeft: []
     };
 
-    this.switchMode(MODE.INVENTORY); */
+    this.switchMode(MODE.INVENTORY);
   }
 
   private handleTap() {
@@ -100,8 +100,8 @@ export class Game extends Scene {
       this.children.bringToTop(this.inventory);
 
       if (this.daysLeft <= 0) {
-        this.scene.start('ResultScene', {
-          foo: 'bar'
+        this.scene.start('ResultsScene', {
+          foundFragments: this.foundFragments
         });
       } else {
         // modal end of day

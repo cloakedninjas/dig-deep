@@ -1,11 +1,12 @@
-import {Game} from './game';
-import {Game as GameScene} from './scenes/game';
-import {Preload} from './scenes/preload';
+import { Game } from './game';
+import { Game as GameScene } from './scenes/game';
+import { Preload } from './scenes/preload';
+import { Results } from './scenes/results';
 
 const config: Phaser.Types.Core.GameConfig = {
   title: 'Demo Game',
 
-  scene: [Preload, GameScene],
+  scene: [Preload, GameScene, Results],
   backgroundColor: '#333',
   resolution: window.devicePixelRatio,
   scale: {
