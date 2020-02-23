@@ -12,6 +12,7 @@ export default class DigSite extends Phaser.GameObjects.Container {
   fragmentDistribution: number[][];
   events: Phaser.Events.EventEmitter;
   layerSize: number;
+  sfx: Record<string, Phaser.Sound.BaseSound>;
 
   constructor(scene: Phaser.Scene, x: number, y: number, tool: Tool) {
     super(scene, x, y, null);
@@ -55,6 +56,13 @@ export default class DigSite extends Phaser.GameObjects.Container {
       this.fragmentDistribution[depth] = shuffle(this.fragmentDistribution[depth]);
 
       this.generateLayer(depth);
+
+      this.sfx = {
+        'ground_break_1': this.scene.sound.add('ground_break_1'),
+        'ground_break_2': this.scene.sound.add('ground_break_2'),
+        'trash_1': this.scene.sound.add('trash_1'),
+        'trash_2': this.scene.sound.add('trash_2'),
+      };
     }
   }
 

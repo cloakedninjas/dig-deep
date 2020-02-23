@@ -32,6 +32,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
     nextDayLabel: Phaser.GameObjects.Text;
     events: Phaser.Events.EventEmitter;
     tool: Tool;
+    sfx: Record<string, Phaser.Sound.BaseSound>;
 
     constructor(scene: Scene) {
         super(scene, 0, 0);
@@ -150,6 +151,13 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.nextDayLabel.on(Phaser.Input.Events.POINTER_UP, this.startNextDay, this);
         this.nextDayLabel.angle = 355;
         this.add(this.nextDayLabel);
+
+        this.sfx = {
+            'upgrade': scene.sound.add('upgrade'),
+            'money_1': scene.sound.add('money_1'),
+            'money_0': scene.sound.add('money_2'),
+            'inv_select': scene.sound.add('inv_select')
+        }
     }
 
     show(page?: number) {
@@ -246,7 +254,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         });
 
         if (this.allFragments.length) {
-            this.selectItem(this.allFragments[0], 0);
+            this.selectItem(this.allFragments[0], 0, true);
         }
     }
 
@@ -264,7 +272,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
         }
     }
 
-    private selectItem(fragment: FragmentDef, i: number) {
+    private selectItem(fragment: FragmentDef, i: number, silent?: boolean) {
         const maxAngle = 50;
         const angleSection = maxAngle / 10;
         const offset = fragment.piece % 2 === 0 ? maxAngle / 2 : 0;
@@ -279,6 +287,10 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
         const itemDef = treasureConfig.find(tc => tc.id === fragment.id);
         this.descLabel.text = itemDef.description;
+
+        if (silent !== true) {
+            this.sfx.inv_select.play();
+        }
     }
 
     private sellItem(item: FragmentDef, priceButton: Button, priceLabel: Phaser.GameObjects.Text) {
@@ -311,6 +323,8 @@ export default class Inventory extends Phaser.GameObjects.Container {
         this.createFragmentListing(this.currentPage);
         this.createPage(this.currentPage);
         this.moneyLabel.text = this.money.toString();
+
+        this.sfx['money_' + Math.round(Math.random())].play();
     }
 
     private buyUpgrade() {
@@ -324,6 +338,7 @@ export default class Inventory extends Phaser.GameObjects.Container {
 
             this.tool.upgrade();
             this.updateUpgradeDetails();
+            this.sfx.upgrade.play();
         }
     }
 

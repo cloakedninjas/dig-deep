@@ -111,6 +111,54 @@
     "music_end": {
       "file": "music/end-sm.mp3",
       "size": 160920
+    },
+    "ui": {
+      "file": "sfx/ui-generic.mp3",
+      "size": 160920
+    },
+    "inv_select": {
+      "file": "sfx/inventory-select.mp3",
+      "size": 160920
+    },
+    "money_1": {
+      "file": "sfx/money-1.mp3",
+      "size": 160920
+    },
+    "money_2": {
+      "file": "sfx/money-2.mp3",
+      "size": 160920
+    },
+    "upgrade": {
+      "file": "sfx/pick-upgrade.mp3",
+      "size": 160920
+    },
+    "relic": {
+      "file": "sfx/relic-found.mp3",
+      "size": 160920
+    },
+    "ground_break_1": {
+      "file": "sfx/ground-break-1.mp3",
+      "size": 160920
+    },
+    "ground_break_2": {
+      "file": "sfx/ground-break-2.mp3",
+      "size": 160920
+    },
+    "pick_1": {
+      "file": "sfx/pick-hit-1.mp3",
+      "size": 160920
+    },
+    "pick_2": {
+      "file": "sfx/pick-hit-2.mp3",
+      "size": 160920
+    },
+    "trash_1": {
+      "file": "sfx/trash-found-1.mp3",
+      "size": 160920
+    },
+    "trash_2": {
+      "file": "sfx/trash-found-2.mp3",
+      "size": 160920
     }
   },
   "json": {}
