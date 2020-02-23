@@ -16,6 +16,7 @@
     },
     "fonts": {
         "cursive": "Sedgwick Ave",
-        "normal": "Neuton"
+        "normal": "Neuton",
+        "colour": "#000"
     }
 }

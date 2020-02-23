@@ -14,6 +14,7 @@ export class Game extends Scene {
   tool: Tool;
   inventory: Inventory;
   money: number = 0;
+  actionsLabel: Phaser.GameObjects.Text;
 
   constructor() {
     super({
@@ -37,6 +38,14 @@ export class Game extends Scene {
     this.digSite.events.on(SITE_EVENTS.DISCOVER, this.handleDiscovery, this);
     this.digSite.events.on(SITE_EVENTS.TAP, this.handleTap, this);
 
+    this.actionsLabel = new Phaser.GameObjects.Text(this, 694, 420, '', {
+      fontFamily: config.fonts.cursive,
+      fontSize: '48px',
+      color: config.fonts.colour,
+    });
+    this.actionsLabel.setOrigin(0.5, 0);
+    this.add.existing(this.actionsLabel);
+
     this.switchMode(MODE.DIGGING);
 
     /* const p = [];
@@ -56,6 +65,7 @@ export class Game extends Scene {
 
   private handleTap() {
     this.tool.actionsLeft--;
+    this.updateToolCounter();
 
     if (this.tool.actionsLeft <= 0) {
       this.switchMode(MODE.INVENTORY);
@@ -83,12 +93,14 @@ export class Game extends Scene {
           foo: 'bar'
         });
       } else {
-        this.tool.refresh();
+
 
         // modal end of day
         this.inventory.show();
       }
     } else {
+      this.refreshTool();
+
       if (this.daysLeft !== config.workDays) {
         this.dayChange();
       }
@@ -128,6 +140,15 @@ export class Game extends Scene {
     const x = 598 + ((config.workDays - this.daysLeft) * 22);
     const cross = new Phaser.GameObjects.Image(this, x, 220, 'cross');
     this.add.existing(cross);
+  }
+
+  private refreshTool() {
+    this.tool.refresh();
+    this.updateToolCounter();
+  }
+
+  private updateToolCounter() {
+    this.actionsLabel.text = this.tool.actionsLeft + ' / ' + this.tool.actions;
   }
 }
 
