@@ -2,33 +2,33 @@
   "image": {
     "base": {
       "file": "base.png",
-      "size": 85726
+      "size": 46779
     },
     "bag": {
       "file": "bag.png",
-      "size": 85726
+      "size": 72998
     },
     "item_large": {
       "file": "item_large.png",
-      "size": 85726
+      "size": 455
     },
     "polaroid_1": {
       "file": "polaroid_1.png",
-      "size": 85726
+      "size": 310
     },
     "polaroid_2": {
       "file": "polaroid_2.png",
-      "size": 85726
+      "size": 706
     },
     "cross": {
       "file": "x.png",
-      "size": 85726
+      "size": 733
     }
   },
   "spritesheet": {
     "arrow_button": {
       "file": "arrow.png",
-      "size": 85726,
+      "size": 929,
       "frameConfig": {
         "frameWidth": 26,
         "frameHeight": 39
@@ -36,7 +36,7 @@
     },
     "sell_button": {
       "file": "button_sell.png",
-      "size": 85726,
+      "size": 1156,
       "frameConfig": {
         "frameWidth": 43,
         "frameHeight": 24
@@ -44,7 +44,7 @@
     },
     "upgrade_button": {
       "file": "button_pickaxe.png",
-      "size": 85726,
+      "size": 5031,
       "frameConfig": {
         "frameWidth": 111,
         "frameHeight": 37
@@ -52,7 +52,7 @@
     },
     "treasure_7": {
       "file": "treasure_7.png",
-      "size": 85726,
+      "size": 36251,
       "frameConfig": {
         "frameWidth": 138,
         "frameHeight": 138
@@ -60,7 +60,7 @@
     },
     "treasure_big_7": {
       "file": "treasure_big_7.png",
-      "size": 85726,
+      "size": 58003,
       "frameConfig": {
         "frameWidth": 392,
         "frameHeight": 232
@@ -68,7 +68,7 @@
     },
     "dirt_1": {
       "file": "dirt_1.png",
-      "size": 85726,
+      "size": 5517,
       "frameConfig": {
         "frameWidth": 73,
         "frameHeight": 73
@@ -76,7 +76,7 @@
     },
     "dirt_2": {
       "file": "dirt_2.png",
-      "size": 85726,
+      "size": 6947,
       "frameConfig": {
         "frameWidth": 73,
         "frameHeight": 73
@@ -84,7 +84,7 @@
     },
     "dirt_3": {
       "file": "dirt_3.png",
-      "size": 85726,
+      "size": 7076,
       "frameConfig": {
         "frameWidth": 73,
         "frameHeight": 73
@@ -92,7 +92,7 @@
     },
     "dirt_4": {
       "file": "dirt_4.png",
-      "size": 85726,
+      "size": 9714,
       "frameConfig": {
         "frameWidth": 73,
         "frameHeight": 73
@@ -102,15 +102,15 @@
   "audio": {
     "music_main": {
       "file": "music/archaeology-sm.mp3",
-      "size": 85726
+      "size": 1301040
     },
     "music_inv": {
       "file": "music/inventory-sm.mp3",
-      "size": 85726
+      "size": 640800
     },
     "music_end": {
       "file": "music/end-sm.mp3",
-      "size": 85726
+      "size": 160920
     }
   },
   "json": {}
