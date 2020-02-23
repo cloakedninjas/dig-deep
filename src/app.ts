@@ -9,17 +9,23 @@ const config: Phaser.Types.Core.GameConfig = {
 
   scene: [Preload, Menu, GameScene, Results],
   backgroundColor: '#333',
-  resolution: window.devicePixelRatio,
+  //resolution: window.devicePixelRatio,
   scale: {
-    mode: Phaser.Scale.NONE,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: 'game-container',
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 800,
     height: 600,
-
+    max: {
+      width: 800,
+      height: 600,
+    }
   },
 };
 
 window.addEventListener('load', () => {
+  if (!document.getElementById('game-container')) {
+    document.body.insertAdjacentHTML('afterbegin', '<div id="game-container"></div>');
+  }
   window['game'] = new Game(config);
 });
