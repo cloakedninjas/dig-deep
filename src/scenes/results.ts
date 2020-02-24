@@ -34,6 +34,8 @@ export class Results extends Scene {
         this.score *= config.completionBonusMult;
       }
 
+      this.score = Math.ceil(this.score);
+
       const coords = {
         1: {
           x: 631,
