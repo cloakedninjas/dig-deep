@@ -9,7 +9,7 @@ export default class DigSite extends Phaser.GameObjects.Container {
   scene: Game;
   layers: Tile[][][];
   cursor: Phaser.GameObjects.Image;
-  tilesDestroyed: number;
+  tilesDestroyed: number = 0;
   tool: Tool;
   fragmentDistribution: number[][];
   events: Phaser.Events.EventEmitter;

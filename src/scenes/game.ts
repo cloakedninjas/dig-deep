@@ -83,7 +83,9 @@ export class Game extends Scene {
   }
 
   private handleEmptied() {
-    this.scene.start('ResultsScene');
+    this.scene.start('ResultsScene', {
+      foundFragments: this.foundFragments
+    });
   }
 
   private switchMode(mode: MODE) {
